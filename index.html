@@ -283,6 +283,7 @@ figure.chart figcaption { margin-bottom: 4px; }
   transition: opacity .09s ease;
 }
 .tooltip.on { opacity: 1; }
+.tooltip.below { transform: translate(-50%, 0); }
 .tt-head { font-weight: 600; margin-bottom: 4px; }
 .tt-row { display: flex; align-items: center; gap: 7px; }
 .tt-row .swatch { width: 9px; height: 9px; }
@@ -1012,9 +1013,12 @@ function drawGrowth() {
       GROWTH.series.map(s =>
         `<div class="tt-row"><span class="swatch" style="background:${s.color}"></span>${s.name}<span class="tt-val">${s.values[i]}</span></div>`
       ).join('');
-    tip.classList.add('on');
-    tip.style.left = (x(i) / W * 100) + '%';
-    tip.style.top = ((padT + 4) / H * box.height) + 'px';
+    tip.classList.add('on', 'below');
+    // giữ tooltip nằm trong khung, không tràn ra hai mép
+    const half = tip.offsetWidth / 2 + 4;
+    const lx = Math.max(half, Math.min(box.width - half, (x(i) / W) * box.width));
+    tip.style.left = lx + 'px';
+    tip.style.top = ((padT + 8) / H * box.height) + 'px';
   };
   const hide = () => {
     tip.classList.remove('on');
@@ -1088,7 +1092,9 @@ function drawRank() {
         tip.innerHTML = `<div class="tt-head">${cat}</div>` +
           `<div class="tt-row"><span class="swatch" style="background:${s.color}"></span>${s.name}<span class="tt-val">${nf.format(v)}</span></div>`;
         tip.classList.add('on');
-        tip.style.left = ((bx + barW / 2) / W * 100) + '%';
+        const half = tip.offsetWidth / 2 + 4;
+        const lx = Math.max(half, Math.min(box.width - half, ((bx + barW / 2) / W) * box.width));
+        tip.style.left = lx + 'px';
         tip.style.top = (by / H * box.height - 8) + 'px';
       });
       p.addEventListener('mouseleave', () => tip.classList.remove('on'));
