@@ -11,148 +11,225 @@
 (function (root) {
 'use strict';
 
-/* ── CSS của trang portfolio ─────────────────────────────────────────── */
+/* ── CSS của trang portfolio — giao diện tối, kiểu creative studio ──── */
 const CSS = `
 :root {
-  color-scheme: light;
-  --page:            #f9f9f7;
-  --surface-1:       #fcfcfb;
-  --surface-2:       #ffffff;
-  --text-primary:    #0b0b0b;
-  --text-secondary:  #52514e;
-  --text-muted:      #898781;
-  --line:            #e1e0d9;
-  --line-strong:     #c3c2b7;
-  --ring:            rgba(11,11,11,0.10);
-  --accent:          #2a78d6;
-  --accent-ink:      #184f95;
-  --success:         #006300;
-  /* Bảng màu chuỗi dữ liệu — thứ tự cố định, đã kiểm định mù màu */
-  --series-1:        #2a78d6;
-  --series-2:        #eb6834;
-  --series-3:        #1baf7a;
-  --radius:          14px;
-  --maxw:            1120px;
+  color-scheme: dark;
+
+  --bg:            #0a0a09;
+  --bg-3:          #1b1b19;
+  --surface-1:     #131312;   /* nền biểu đồ */
+
+  --text-primary:  #f6f5f1;
+  --text-secondary:#a8a69c;
+  --text-muted:    #6f6d65;
+
+  --line:          #262523;
+  --line-strong:   #3a3936;
+  --ring:          rgba(255,255,255,0.10);
+
+  --accent:        #ccff33;
+  --accent-ink:    #0a0a09;
+
+  /* Bảng màu chuỗi dữ liệu — thứ tự cố định, đã kiểm định mù màu
+     trên đúng nền #131312 (CVD ΔE 9.4 · tương phản ≥ 3:1) */
+  --series-1:      #3987e5;
+  --series-2:      #d95926;
+  --series-3:      #199e70;
+
+  --font: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --maxw: 1240px;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page:           #0d0d0d;
-    --surface-1:      #1a1a19;
-    --surface-2:      #171716;
-    --text-primary:   #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted:     #898781;
-    --line:           #2c2c2a;
-    --line-strong:    #383835;
-    --ring:           rgba(255,255,255,0.10);
-    --accent:         #3987e5;
-    --accent-ink:     #86b6ef;
-    --success:        #0ca30c;
-    --series-1:       #3987e5;
-    --series-2:       #d95926;
-    --series-3:       #199e70;
-  }
-}
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+body {
+  margin: 0; background: var(--bg); color: var(--text-primary);
+  font-family: var(--font); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 28px; }
+@media (max-width: 560px) { .wrap { padding-inline: 20px; } }
+
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { margin: 0; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+/* ── Hiệu ứng xuất hiện khi cuộn ───────────────────────────────────── */
+html.js .rv { opacity: 0; transform: translateY(20px); }
+html.js .rv.in { opacity: 1; transform: none; transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  html.js .rv { opacity: 1; transform: none; }
   * { animation: none !important; transition: none !important; }
 }
-body {
-  margin: 0; background: var(--page); color: var(--text-primary);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
-}
-.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
-a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--accent); }
-h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
 
+/* ── Thanh điều hướng ──────────────────────────────────────────────── */
 .nav {
-  position: sticky; top: 0; z-index: 40;
-  background: color-mix(in srgb, var(--page) 88%, transparent);
-  backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--line);
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  transition: background .3s, border-color .3s, backdrop-filter .3s;
+  border-bottom: 1px solid transparent;
 }
-.nav-inner { display: flex; align-items: center; gap: 28px; height: 62px; }
-.nav-brand { font-weight: 600; letter-spacing: -0.02em; margin-right: auto; }
-.nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14.5px; }
+.nav.stuck {
+  background: rgba(10,10,9,.82);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom-color: var(--line);
+}
+.nav-inner { display: flex; align-items: center; gap: 30px; height: 72px; }
+.nav-brand { font-weight: 800; letter-spacing: -0.03em; font-size: 17px; margin-right: auto; }
+.nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; position: relative; }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; right: 100%; bottom: -5px;
+  height: 1px; background: var(--accent); transition: right .28s;
+}
 .nav-links a:hover { color: var(--text-primary); }
-@media (max-width: 780px) { .nav-links { display: none; } }
+.nav-links a:hover::after { right: 0; }
+@media (max-width: 860px) { .nav-links { display: none; } }
 
-.hero { padding: 96px 0 64px; }
+/* ── Mở đầu ────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh; display: flex; align-items: center;
+  padding: 128px 0 72px; position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; z-index: -1;
+  top: -18%; left: 50%; transform: translateX(-50%);
+  width: min(1100px, 130vw); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(204,255,51,.09) 0%, transparent 62%);
+  pointer-events: none;
+}
 .eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--text-secondary); font-weight: 500;
-  border: 1px solid var(--line); border-radius: 999px;
-  padding: 6px 14px; background: var(--surface-2);
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-secondary); font-weight: 600;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 7px 16px;
 }
-.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
-.hero h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); margin: 26px 0 0; letter-spacing: -0.035em; }
-.hero .role { font-size: clamp(1.15rem, 2.4vw, 1.5rem); color: var(--text-secondary); font-weight: 400; margin-top: 12px; }
-.hero .lede { max-width: 62ch; margin-top: 22px; font-size: 17.5px; color: var(--text-secondary); }
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.dot::after {
+  content: ''; display: block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); animation: ping 2s ease-out infinite;
+}
+@keyframes ping { 0% { transform: scale(1); opacity: .8 } 100% { transform: scale(3.4); opacity: 0 } }
+
+.hero h1 {
+  font-size: clamp(3rem, 11vw, 8.5rem); font-weight: 900;
+  letter-spacing: -0.045em; line-height: 0.92; margin: 30px 0 0;
+}
+.hero .role {
+  font-size: clamp(1.05rem, 2.3vw, 1.6rem); color: var(--text-secondary);
+  font-weight: 500; margin-top: 20px; letter-spacing: -0.01em;
+}
+.hero .lede { max-width: 60ch; margin-top: 26px; font-size: clamp(15.5px, 1.5vw, 18px); color: var(--text-secondary); }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
 .btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 20px; border-radius: 10px; font-size: 15px; font-weight: 500;
-  text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 24px; border-radius: 999px; font-size: 14.5px; font-weight: 600;
+  border: 1px solid var(--line-strong); cursor: pointer;
+  transition: background .22s, color .22s, border-color .22s, transform .22s;
 }
-.btn-primary { background: var(--text-primary); color: var(--page); }
-.btn-primary:hover { color: var(--page); opacity: .88; }
-.btn-ghost { border-color: var(--line-strong); color: var(--text-primary); background: var(--surface-2); }
-.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: #dbff5e; border-color: #dbff5e; }
+.btn-ghost { color: var(--text-primary); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ── Dải chữ chạy ──────────────────────────────────────────────────── */
+.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 20px 0; }
+.marquee-track { display: flex; width: max-content; animation: slide 46s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span {
+  display: inline-flex; align-items: center; gap: 30px; padding-right: 30px;
+  font-size: clamp(1rem, 2.1vw, 1.7rem); font-weight: 800;
+  letter-spacing: -0.02em; text-transform: uppercase; white-space: nowrap;
+}
+.marquee-track span::after { content: '✦'; color: var(--accent); font-size: .7em; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ── Chỉ số lớn ────────────────────────────────────────────────────── */
 .stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px;
-  background: var(--line); border: 1px solid var(--line);
-  border-radius: var(--radius); overflow: hidden; margin-top: 60px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  border-top: 1px solid var(--line);
 }
-.stat { background: var(--surface-1); padding: 26px 22px; }
-.stat .val { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
-.stat .lbl { font-size: 13.5px; color: var(--text-secondary); margin-top: 8px; }
+.stat { padding: 40px 28px 44px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
+.stat:last-child { border-right: 0; }
+.stat .val {
+  font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 900;
+  letter-spacing: -0.05em; line-height: 1; color: var(--accent);
+}
+.stat .lbl { font-size: 13.5px; color: var(--text-secondary); margin-top: 14px; max-width: 24ch; }
 
-section { padding: 78px 0; border-top: 1px solid var(--line); }
-.sec-head { max-width: 66ch; margin-bottom: 44px; }
-.sec-label { font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-.sec-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); margin-top: 12px; }
-.sec-head p { color: var(--text-secondary); margin: 14px 0 0; font-size: 16.5px; }
+/* ── Khung mục ─────────────────────────────────────────────────────── */
+section { padding: clamp(80px, 11vw, 150px) 0; }
+.sec-head { margin-bottom: 56px; }
+.sec-label {
+  display: inline-block; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 20px;
+}
+.sec-head h2 { font-size: clamp(2rem, 5.2vw, 3.8rem); font-weight: 900; letter-spacing: -0.04em; max-width: 20ch; }
+.sec-head p { color: var(--text-secondary); margin: 22px 0 0; font-size: 16.5px; max-width: 62ch; }
 
-.cases { display: grid; gap: 20px; }
-.case { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
-.case-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+/* ── Dự án: danh sách dòng lớn, bấm để mở ──────────────────────────── */
+.cases { border-top: 1px solid var(--line); }
+.case { border-bottom: 1px solid var(--line); }
+.case > summary {
+  display: grid; grid-template-columns: 58px 1fr 40px; gap: 22px; align-items: start;
+  padding: 32px 0; cursor: pointer; list-style: none;
+}
+.case > summary::-webkit-details-marker { display: none; }
+.case-idx { font-size: 12.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; padding-top: 10px; letter-spacing: .1em; }
+.case h3 {
+  font-size: clamp(1.3rem, 3.2vw, 2.35rem); font-weight: 800;
+  letter-spacing: -0.035em; transition: color .25s;
+}
+.case > summary:hover h3 { color: var(--accent); }
+.case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .tag {
-  font-size: 12.5px; font-weight: 500; color: var(--text-secondary);
-  border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; background: var(--surface-2);
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 12px;
 }
-.case h3 { font-size: 1.35rem; margin: 8px 0 0; }
-.case-meta { font-size: 13.5px; color: var(--text-muted); margin-top: 6px; }
-.case-body { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 22px; }
-@media (max-width: 760px) { .case-body { grid-template-columns: 1fr; gap: 20px; } }
-.case-body h4 { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.plus {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong);
+  display: grid; place-items: center; margin-top: 6px;
+  transition: transform .3s, border-color .25s, background .25s, color .25s;
+  font-size: 17px; color: var(--text-secondary); line-height: 1;
+}
+.case > summary:hover .plus { border-color: var(--accent); color: var(--accent); }
+.case[open] > summary .plus { transform: rotate(45deg); background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.case-open { padding: 4px 0 40px 80px; }
+@media (max-width: 720px) {
+  .case > summary { grid-template-columns: 34px 1fr 34px; gap: 14px; }
+  .plus { width: 30px; height: 30px; font-size: 15px; }
+  .case-open { padding-left: 0; }
+}
+.case-meta { font-size: 13.5px; color: var(--text-muted); margin: 0 0 26px; }
+.case-body { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+@media (max-width: 760px) { .case-body { grid-template-columns: 1fr; gap: 26px; } }
+.case-body h4 { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; }
 .case-body p { margin: 0; color: var(--text-secondary); font-size: 15.5px; }
-.case-body ul { margin: 0; padding-left: 18px; color: var(--text-secondary); font-size: 15.5px; }
-.case-body li { margin-bottom: 5px; }
+.case-body ul { margin: 0; padding: 0; list-style: none; color: var(--text-secondary); font-size: 15.5px; }
+.case-body li { padding-left: 20px; position: relative; margin-bottom: 9px; }
+.case-body li::before { content: ''; position: absolute; left: 0; top: 11px; width: 7px; height: 1px; background: var(--accent); }
 
 .results {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px;
-  background: var(--line); border: 1px solid var(--line);
-  border-radius: 10px; overflow: hidden; margin-top: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+  margin-top: 34px; border-radius: 4px; overflow: hidden;
 }
-.result { background: var(--surface-2); padding: 16px 18px; }
-.result .val { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; color: var(--success); line-height: 1.15; }
-.result .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+.result { background: var(--bg); padding: 22px 20px; }
+.result .val { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 900; letter-spacing: -0.04em; color: var(--accent); line-height: 1; }
+.result .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
 
+/* ── Biểu đồ ───────────────────────────────────────────────────────── */
 .chart-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-figure.chart { margin: 0; background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 26px 20px; }
-figure.chart figcaption { margin-bottom: 4px; }
-.chart-title { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.015em; }
-.chart-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
-.legend { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0 10px; }
-.legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-secondary); }
+figure.chart { margin: 0; background: var(--surface-1); border: 1px solid var(--line); border-radius: 14px; padding: 30px 30px 22px; }
+.chart-title { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.025em; }
+.chart-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 20px; margin: 22px 0 12px; }
+.legend-item { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--text-secondary); }
 .swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
 /* Trên màn hình hẹp biểu đồ cuộn ngang thay vì co nhỏ đến mức không đọc được */
 .chart-canvas { overflow-x: auto; overscroll-behavior-x: contain; }
@@ -162,67 +239,113 @@ figure.chart figcaption { margin-bottom: 4px; }
 .tooltip {
   position: absolute; pointer-events: none; opacity: 0;
   transform: translate(-50%, -100%);
-  background: var(--surface-2); color: var(--text-primary);
-  border: 1px solid var(--ring); border-radius: 9px;
-  padding: 9px 12px; font-size: 13px; line-height: 1.5;
-  box-shadow: 0 6px 22px rgba(0,0,0,.14); white-space: nowrap; z-index: 5;
+  background: var(--bg-3); color: var(--text-primary);
+  border: 1px solid var(--line-strong); border-radius: 9px;
+  padding: 10px 13px; font-size: 13px; line-height: 1.5;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); white-space: nowrap; z-index: 5;
   transition: opacity .09s ease;
 }
 .tooltip.on { opacity: 1; }
 .tooltip.below { transform: translate(-50%, 0); }
-.tt-head { font-weight: 600; margin-bottom: 4px; }
-.tt-row { display: flex; align-items: center; gap: 7px; }
+.tt-head { font-weight: 700; margin-bottom: 5px; }
+.tt-row { display: flex; align-items: center; gap: 8px; }
 .tt-row .swatch { width: 9px; height: 9px; }
-.tt-val { margin-left: auto; padding-left: 14px; font-variant-numeric: tabular-nums; font-weight: 600; }
+.tt-val { margin-left: auto; padding-left: 16px; font-variant-numeric: tabular-nums; font-weight: 700; }
 
-.chart-foot { display: flex; align-items: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.chart-foot { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
 .link-btn {
-  background: none; border: 0; padding: 0; cursor: pointer;
-  font: inherit; font-size: 13.5px; color: var(--accent-ink);
-  text-decoration: underline; text-underline-offset: 3px;
+  background: none; border: 0; padding: 0; cursor: pointer; font: inherit;
+  font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: underline; text-underline-offset: 4px;
 }
 .chart-note { font-size: 12.5px; color: var(--text-muted); }
-.data-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
-.data-table caption { text-align: left; font-size: 12.5px; color: var(--text-muted); padding-bottom: 8px; }
-.data-table th, .data-table td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.data-table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 13.5px; }
+.data-table caption { text-align: left; font-size: 12.5px; color: var(--text-muted); padding-bottom: 10px; }
+.data-table th, .data-table td { text-align: right; padding: 8px 11px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
 .data-table th:first-child, .data-table td:first-child { text-align: left; }
-.data-table thead th { color: var(--text-secondary); font-weight: 600; }
+.data-table thead th { color: var(--text-secondary); font-weight: 700; }
 .table-scroll { overflow-x: auto; }
 
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-@media (max-width: 900px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 620px) { .grid-3 { grid-template-columns: 1fr; } }
-.card { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
-.card h3 { font-size: 1.08rem; }
-.card p { color: var(--text-secondary); font-size: 15px; margin: 10px 0 0; }
-.card ul { margin: 14px 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 14.5px; }
-.card li { margin-bottom: 4px; }
-.card-icon {
-  width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
-  background: var(--surface-2); border: 1px solid var(--line); margin-bottom: 16px; font-size: 17px;
+/* ── Năng lực ──────────────────────────────────────────────────────── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 940px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+.card { background: var(--bg); padding: 36px 30px 38px; transition: background .3s; }
+.card:hover { background: var(--surface-1); }
+.card h3 { font-size: 1.18rem; font-weight: 800; }
+.card p { color: var(--text-secondary); font-size: 15px; margin: 12px 0 0; }
+.card ul { margin: 20px 0 0; padding: 0; list-style: none; color: var(--text-secondary); font-size: 14.5px; }
+.card li { padding-left: 18px; position: relative; margin-bottom: 7px; }
+.card li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 1px; background: var(--accent); }
+.card-icon { font-size: 24px; margin-bottom: 20px; display: block; }
+
+/* ── Quy trình ─────────────────────────────────────────────────────── */
+.steps { border-top: 1px solid var(--line); }
+.step {
+  display: grid; grid-template-columns: 110px 1fr 1.4fr; gap: 28px;
+  padding: 34px 0; border-bottom: 1px solid var(--line); align-items: baseline;
 }
+@media (max-width: 800px) { .step { grid-template-columns: 60px 1fr; gap: 18px; } .step p { grid-column: 2; } }
+.step .n { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 900; color: var(--text-muted); letter-spacing: -0.04em; }
+.step h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 800; }
+.step p { font-size: 15px; color: var(--text-secondary); margin: 0; }
 
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-.step { border-top: 2px solid var(--line-strong); padding-top: 16px; }
-.step .n { font-size: 12.5px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; }
-.step h3 { font-size: 1.02rem; margin-top: 8px; }
-.step p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0 0; }
+/* ── Công cụ ───────────────────────────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  font-size: 14px; color: var(--text-secondary); border: 1px solid var(--line-strong);
+  border-radius: 999px; padding: 9px 18px; transition: color .22s, border-color .22s;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); }
 
-.chips { display: flex; flex-wrap: wrap; gap: 9px; }
-.chip { font-size: 14px; color: var(--text-secondary); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; background: var(--surface-1); }
+/* ── Liên hệ ───────────────────────────────────────────────────────── */
+#lien-he { border-top: 1px solid var(--line); }
+.contact h2 { font-size: clamp(1.9rem, 5vw, 3.4rem); font-weight: 900; letter-spacing: -0.04em; max-width: 18ch; }
+.contact p { color: var(--text-secondary); max-width: 56ch; margin: 24px 0 0; font-size: 16.5px; }
+.mailto {
+  display: inline-block; margin-top: 44px;
+  font-size: clamp(1.4rem, 5.4vw, 3.4rem); font-weight: 900; letter-spacing: -0.045em;
+  border-bottom: 2px solid var(--line-strong); padding-bottom: 8px;
+  transition: color .25s, border-color .25s; word-break: break-word;
+}
+.mailto:hover { color: var(--accent); border-color: var(--accent); }
 
-.contact { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 46px; }
-.contact h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); }
-.contact p { color: var(--text-secondary); max-width: 56ch; margin: 14px 0 0; }
-footer { border-top: 1px solid var(--line); padding: 30px 0 46px; font-size: 13.5px; color: var(--text-muted); }
-footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+footer { border-top: 1px solid var(--line); padding: 34px 0 52px; font-size: 13.5px; color: var(--text-muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; }
+.foot-links { display: flex; gap: 20px; }
+.foot-links a:hover { color: var(--accent); }
 
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 `;
 
-/* ── Mã vẽ biểu đồ ────────────────────────────────────────────────────
-   Viết dưới dạng hàm thật rồi tuần tự hoá bằng toString() khi nhúng vào
-   trang, nên không phải escape ký tự nào.                             */
+/* ── Mã chạy trên trang: hiệu ứng cuộn, thanh nav ────────────────────
+   Viết dưới dạng hàm thật rồi tuần tự hoá bằng toString() khi nhúng,
+   nên không phải escape ký tự nào.                                    */
+function pageRuntime() {
+  const nav = document.querySelector('.nav');
+  const onScroll = () => nav && nav.classList.toggle('stuck', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(t => t.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const d = e.target.dataset.delay;
+        if (d) e.target.style.transitionDelay = d + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+    targets.forEach(t => io.observe(t));
+  }
+}
+
+/* ── Mã vẽ biểu đồ ──────────────────────────────────────────────────── */
 function chartRuntime(GROWTH, RANK) {
   const nf = new Intl.NumberFormat('vi-VN');
   const SVGNS = 'http://www.w3.org/2000/svg';
@@ -281,8 +404,7 @@ function chartRuntime(GROWTH, RANK) {
     const x = i => n === 1 ? padL + plotW / 2 : padL + (plotW * i) / (n - 1);
     const y = v => padT + plotH - (plotH * v) / scale.max;
 
-    const svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img',
-      'aria-label': GROWTH.alt });
+    const svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': GROWTH.alt });
 
     scale.ticks.forEach(v => {
       svg.appendChild(el('line', { x1: padL, x2: padL + plotW, y1: y(v), y2: y(v),
@@ -313,7 +435,7 @@ function chartRuntime(GROWTH, RANK) {
         fill: s.color, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
 
       const lbl = el('text', { x: x(n - 1) + 12, y: y(last) - 3,
-        fill: 'var(--text-primary)', 'font-size': 12.5, 'font-weight': 600 });
+        fill: 'var(--text-primary)', 'font-size': 12.5, 'font-weight': 700 });
       lbl.textContent = nf.format(last);
       svg.appendChild(lbl);
 
@@ -445,7 +567,7 @@ function chartRuntime(GROWTH, RANK) {
         p.addEventListener('mouseleave', () => tip.classList.remove('on'));
 
         const lbl = el('text', { x: bx + barW / 2, y: by - 8, 'text-anchor': 'middle',
-          fill: 'var(--text-secondary)', 'font-size': 11.5, 'font-weight': 600 });
+          fill: 'var(--text-secondary)', 'font-size': 11.5, 'font-weight': 700 });
         lbl.setAttribute('style', 'font-variant-numeric:tabular-nums');
         lbl.textContent = nf.format(v);
         svg.appendChild(lbl);
@@ -501,23 +623,18 @@ const jsonSafe = o => JSON.stringify(o).replace(/</g, '\\u003c');
 function buildHTML(d) {
   const m = d.meta, url = m.url.replace(/\/?$/, '/');
 
+  const pickSeries = arr => arr.slice(0, 3).map((s, i) => ({
+    name: s.name, color: SERIES_VARS[i], values: s.values
+  }));
   const growth = {
-    labels: d.charts.growth.labels,
-    alt: d.charts.growth.alt,
-    tableCaption: d.charts.growth.tableCaption,
-    rowHeader: d.charts.growth.rowHeader,
-    series: d.charts.growth.series.slice(0, 3).map((s, i) => ({
-      name: s.name, color: SERIES_VARS[i], values: s.values
-    }))
+    labels: d.charts.growth.labels, alt: d.charts.growth.alt,
+    tableCaption: d.charts.growth.tableCaption, rowHeader: d.charts.growth.rowHeader,
+    series: pickSeries(d.charts.growth.series)
   };
   const rank = {
-    categories: d.charts.rank.categories,
-    alt: d.charts.rank.alt,
-    tableCaption: d.charts.rank.tableCaption,
-    rowHeader: d.charts.rank.rowHeader,
-    series: d.charts.rank.series.slice(0, 3).map((s, i) => ({
-      name: s.name, color: SERIES_VARS[i], values: s.values
-    }))
+    categories: d.charts.rank.categories, alt: d.charts.rank.alt,
+    tableCaption: d.charts.rank.tableCaption, rowHeader: d.charts.rank.rowHeader,
+    series: pickSeries(d.charts.rank.series)
   };
 
   const ld = {
@@ -530,8 +647,7 @@ function buildHTML(d) {
       },
       {
         '@type': 'Person', '@id': url + '#person',
-        name: m.name, jobTitle: m.role,
-        email: 'mailto:' + m.email, url: url,
+        name: m.name, jobTitle: m.role, email: 'mailto:' + m.email, url: url,
         description: m.description,
         knowsAbout: lines(d.knowsAbout),
         worksFor: m.orgName ? { '@type': 'Organization', name: m.orgName, url: m.orgUrl } : undefined,
@@ -540,50 +656,59 @@ function buildHTML(d) {
     ]
   };
 
-  const statHTML = d.hero.stats.map(s =>
-    '        <div class="stat"><div class="val">' + esc(s.val) + '</div><div class="lbl">' + esc(s.lbl) + '</div></div>'
+  const statHTML = d.hero.stats.map((s, i) =>
+    '      <div class="stat rv" data-delay="' + (i * 70) + '"><div class="val">' + esc(s.val) +
+    '</div><div class="lbl">' + esc(s.lbl) + '</div></div>'
   ).join('\n');
 
-  const caseHTML = d.cases.map(c =>
-`      <article class="case">
-        <div class="case-top">
-${lines(c.tags).map(t => '          <span class="tag">' + esc(t) + '</span>').join('\n')}
-        </div>
-        <h3>${esc(c.title)}</h3>
-        <p class="case-meta">${esc(c.meta)}</p>
+  /* Dải chữ chạy: lặp danh sách hai lần để vòng lặp liền mạch */
+  const kw = lines(d.knowsAbout);
+  const marqueeRun = kw.map(k => '<span>' + esc(k) + '</span>').join('');
 
-        <div class="case-body">
-          <div>
-            <h4>${esc(c.contextLabel || 'Bối cảnh')}</h4>
-            <p>${esc(c.context)}</p>
+  const caseHTML = d.cases.map((c, i) =>
+`      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">${String(i + 1).padStart(2, '0')}</span>
+          <span>
+            <h3>${esc(c.title)}</h3>
+            <span class="case-tags">${lines(c.tags).map(t => '<span class="tag">' + esc(t) + '</span>').join('')}</span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">${esc(c.meta)}</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>${esc(c.context)}</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+${lines(c.actions).map(a => '                <li>' + esc(a) + '</li>').join('\n')}
+              </ul>
+            </div>
           </div>
-          <div>
-            <h4>${esc(c.actionsLabel || 'Việc đã làm')}</h4>
-            <ul>
-${lines(c.actions).map(a => '              <li>' + esc(a) + '</li>').join('\n')}
-            </ul>
+          <div class="results">
+${c.results.map(r => '            <div class="result"><div class="val">' + esc(r.val) + '</div><div class="lbl">' + esc(r.lbl) + '</div></div>').join('\n')}
           </div>
         </div>
-
-        <div class="results">
-${c.results.map(r => '          <div class="result"><div class="val">' + esc(r.val) + '</div><div class="lbl">' + esc(r.lbl) + '</div></div>').join('\n')}
-        </div>
-      </article>`
+      </details>`
   ).join('\n\n');
 
-  const skillHTML = d.skills.map(s =>
-`      <article class="card">
-        <div class="card-icon" aria-hidden="true">${esc(s.icon)}</div>
+  const skillHTML = d.skills.map((s, i) =>
+`      <article class="card rv" data-delay="${(i % 3) * 80}">
+        <span class="card-icon" aria-hidden="true">${esc(s.icon)}</span>
         <h3>${esc(s.title)}</h3>
         <p>${esc(s.desc)}</p>
         <ul>
-${lines(s.items).map(i => '          <li>' + esc(i) + '</li>').join('\n')}
+${lines(s.items).map(x => '          <li>' + esc(x) + '</li>').join('\n')}
         </ul>
       </article>`
   ).join('\n\n');
 
   const stepHTML = d.process.map((s, i) =>
-`      <div class="step">
+`      <div class="step rv">
         <div class="n">${String(i + 1).padStart(2, '0')}</div>
         <h3>${esc(s.title)}</h3>
         <p>${esc(s.desc)}</p>
@@ -603,6 +728,7 @@ ${lines(s.items).map(i => '          <li>' + esc(i) + '</li>').join('\n')}
 <link rel="canonical" href="${esc(url)}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="${esc(m.name)}">
+<meta name="theme-color" content="#0a0a09">
 
 <meta property="og:type" content="profile">
 <meta property="og:locale" content="vi_VN">
@@ -616,11 +742,16 @@ ${lines(s.items).map(i => '          <li>' + esc(i) + '</li>').join('\n')}
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${esc(m.favicon || '📈')}</text></svg>">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+
 <!-- Dữ liệu có cấu trúc: giúp Google hiểu bạn là một thực thể (entity) -->
 <script type="application/ld+json">
 ${jsonSafe(ld)}
 </script>
 
+<script>document.documentElement.classList.add('js');</script>
 <style>${CSS}</style>
 </head>
 
@@ -645,27 +776,30 @@ ${jsonSafe(ld)}
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> ${esc(d.hero.badge)}</span>
-
-    <h1>${esc(m.name)}</h1>
-    <p class="role">${esc(d.hero.role)}</p>
-
-    <p class="lede">${esc(d.hero.lede)}</p>
-
-    <div class="cta-row">
+    <span class="eyebrow rv"><span class="dot" aria-hidden="true"></span> ${esc(d.hero.badge)}</span>
+    <h1 class="rv" data-delay="60">${esc(m.name)}</h1>
+    <p class="role rv" data-delay="120">${esc(d.hero.role)}</p>
+    <p class="lede rv" data-delay="180">${esc(d.hero.lede)}</p>
+    <div class="cta-row rv" data-delay="240">
       <a class="btn btn-primary" href="#case-studies">${esc(d.hero.cta1)}</a>
       <a class="btn btn-ghost" href="#lien-he">${esc(d.hero.cta2)}</a>
-    </div>
-
-    <div class="stats">
-${statHTML}
     </div>
   </div>
 </header>
 
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">${marqueeRun}${marqueeRun}</div>
+</div>
+
+<section class="stats-sec" style="padding:0">
+  <div class="stats">
+${statHTML}
+  </div>
+</section>
+
 <section id="case-studies">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">${esc(d.sections.cases.label)}</div>
       <h2>${esc(d.sections.cases.title)}</h2>
       <p>${esc(d.sections.cases.desc)}</p>
@@ -681,7 +815,7 @@ ${caseHTML}
 
 <section id="ket-qua">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">${esc(d.sections.charts.label)}</div>
       <h2>${esc(d.sections.charts.title)}</h2>
       <p>${esc(d.sections.charts.desc)}</p>
@@ -689,7 +823,7 @@ ${caseHTML}
 
     <div class="chart-grid">
 
-      <figure class="chart">
+      <figure class="chart rv">
         <figcaption>
           <div class="chart-title">${esc(d.charts.growth.title)}</div>
           <div class="chart-sub">${esc(d.charts.growth.sub)}</div>
@@ -703,7 +837,7 @@ ${caseHTML}
         <div class="table-scroll" id="growthTable" hidden></div>
       </figure>
 
-      <figure class="chart">
+      <figure class="chart rv">
         <figcaption>
           <div class="chart-title">${esc(d.charts.rank.title)}</div>
           <div class="chart-sub">${esc(d.charts.rank.sub)}</div>
@@ -723,7 +857,7 @@ ${caseHTML}
 
 <section id="nang-luc">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">${esc(d.sections.skills.label)}</div>
       <h2>${esc(d.sections.skills.title)}</h2>
     </div>
@@ -738,7 +872,7 @@ ${skillHTML}
 
 <section id="quy-trinh">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">${esc(d.sections.process.label)}</div>
       <h2>${esc(d.sections.process.title)}</h2>
     </div>
@@ -751,30 +885,28 @@ ${stepHTML}
 
 <section id="cong-cu">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">${esc(d.sections.tools.label)}</div>
       <h2>${esc(d.sections.tools.title)}</h2>
     </div>
-    <div class="chips">
+    <div class="chips rv">
 ${lines(d.tools).map(t => '      <span class="chip">' + esc(t) + '</span>').join('\n')}
     </div>
   </div>
 </section>
 
 <section id="lien-he">
-  <div class="wrap">
-    <div class="contact">
-      <h2>${esc(d.contact.heading)}</h2>
-      <p>${esc(d.contact.text)}</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:${esc(m.email)}">${esc(m.email)}</a>
+  <div class="wrap contact">
+    <h2 class="rv">${esc(d.contact.heading)}</h2>
+    <p class="rv" data-delay="80">${esc(d.contact.text)}</p>
+    <a class="mailto rv" data-delay="140" href="mailto:${esc(m.email)}">${esc(m.email)}</a>
+    <div class="cta-row rv" data-delay="200">
 ${lines(d.contact.links).map(l => {
   const parts = l.split('|');
   const label = (parts[0] || '').trim();
   const href = (parts[1] || '').trim();
-  return '        <a class="btn btn-ghost" href="' + esc(href) + '" rel="noopener">' + esc(label) + '</a>';
+  return '      <a class="btn btn-ghost" href="' + esc(href) + '" rel="noopener">' + esc(label) + '</a>';
 }).join('\n')}
-      </div>
     </div>
   </div>
 </section>
@@ -784,6 +916,9 @@ ${lines(d.contact.links).map(l => {
 <footer>
   <div class="wrap">
     <span>© <span id="year">2026</span> ${esc(m.name)} · ${esc(m.role)}</span>
+    <span class="foot-links">
+      <a href="#main">Lên đầu trang</a>
+    </span>
     <span>${esc(d.footerNote)}</span>
   </div>
 </footer>
@@ -792,6 +927,7 @@ ${lines(d.contact.links).map(l => {
 const GROWTH = ${jsonSafe(growth)};
 const RANK = ${jsonSafe(rank)};
 (${chartRuntime.toString()})(GROWTH, RANK);
+(${pageRuntime.toString()})();
 </script>
 
 </body>
@@ -832,7 +968,7 @@ const DEFAULT = {
     cases: {
       nav: 'Dự án', label: 'Dự án tiêu biểu',
       title: 'Sáu bài toán SEO khác nhau, sáu cách giải khác nhau',
-      desc: 'Mỗi dự án dưới đây được mô tả theo cùng một cấu trúc: bối cảnh khi tiếp nhận, việc đã làm, và kết quả đo được. Số liệu lấy từ Google Search Console và GA4 tại thời điểm kết thúc giai đoạn.'
+      desc: 'Mỗi dự án dưới đây được mô tả theo cùng một cấu trúc: bối cảnh khi tiếp nhận, việc đã làm, và kết quả đo được. Số liệu lấy từ Google Search Console và GA4 tại thời điểm kết thúc giai đoạn. Bấm vào từng dòng để mở chi tiết.'
     },
     charts: {
       nav: 'Kết quả', label: 'Kết quả đo được',
@@ -978,7 +1114,7 @@ const DEFAULT = {
     text: 'Tôi nhận tư vấn audit, triển khai dài hạn và đào tạo đội in-house. Gửi cho tôi tên miền và bài toán bạn đang gặp — tôi sẽ phản hồi trong 24 giờ.',
     links: 'GitHub | https://github.com/anhnhnwork-code'
   },
-  footerNote: 'Số liệu cập nhật theo Google Search Console & GA4'
+  footerNote: 'Số liệu theo Google Search Console & GA4'
 };
 
 const API = { CSS, buildHTML, DEFAULT, esc, lines };

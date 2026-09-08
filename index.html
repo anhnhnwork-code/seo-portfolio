@@ -11,6 +11,7 @@
 <link rel="canonical" href="https://anhnhnwork-code.github.io/seo-portfolio/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Nguyễn Anh">
+<meta name="theme-color" content="#0a0a09">
 
 <meta property="og:type" content="profile">
 <meta property="og:locale" content="vi_VN">
@@ -24,152 +25,234 @@
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+
 <!-- Dữ liệu có cấu trúc: giúp Google hiểu bạn là một thực thể (entity) -->
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[{"@type":"ProfilePage","@id":"https://anhnhnwork-code.github.io/seo-portfolio/#page","url":"https://anhnhnwork-code.github.io/seo-portfolio/","name":"Nguyễn Anh — Senior SEO Specialist | Portfolio dự án SEO","inLanguage":"vi-VN","mainEntity":{"@id":"https://anhnhnwork-code.github.io/seo-portfolio/#person"}},{"@type":"Person","@id":"https://anhnhnwork-code.github.io/seo-portfolio/#person","name":"Nguyễn Anh","jobTitle":"Senior SEO Specialist","email":"mailto:kythuatseo@seongon.com","url":"https://anhnhnwork-code.github.io/seo-portfolio/","description":"Portfolio của Nguyễn Anh — Senior SEO Specialist với 8+ năm kinh nghiệm. 24 dự án SEO cho E-commerce, Fintech, Y tế, SaaS: tăng trưởng traffic organic, khôi phục sau Core Update, Local SEO đa chi nhánh và GEO/AI Search.","knowsAbout":["Technical SEO","Semantic SEO","E-E-A-T","Local SEO","SEO Analytics","Generative Engine Optimization","Core Web Vitals","Programmatic SEO","Entity SEO"],"worksFor":{"@type":"Organization","name":"SEONGON","url":"https://seongon.com/"},"sameAs":["https://github.com/anhnhnwork-code"]}]}
 </script>
 
+<script>document.documentElement.classList.add('js');</script>
 <style>
 :root {
-  color-scheme: light;
-  --page:            #f9f9f7;
-  --surface-1:       #fcfcfb;
-  --surface-2:       #ffffff;
-  --text-primary:    #0b0b0b;
-  --text-secondary:  #52514e;
-  --text-muted:      #898781;
-  --line:            #e1e0d9;
-  --line-strong:     #c3c2b7;
-  --ring:            rgba(11,11,11,0.10);
-  --accent:          #2a78d6;
-  --accent-ink:      #184f95;
-  --success:         #006300;
-  /* Bảng màu chuỗi dữ liệu — thứ tự cố định, đã kiểm định mù màu */
-  --series-1:        #2a78d6;
-  --series-2:        #eb6834;
-  --series-3:        #1baf7a;
-  --radius:          14px;
-  --maxw:            1120px;
+  color-scheme: dark;
+
+  --bg:            #0a0a09;
+  --bg-3:          #1b1b19;
+  --surface-1:     #131312;   /* nền biểu đồ */
+
+  --text-primary:  #f6f5f1;
+  --text-secondary:#a8a69c;
+  --text-muted:    #6f6d65;
+
+  --line:          #262523;
+  --line-strong:   #3a3936;
+  --ring:          rgba(255,255,255,0.10);
+
+  --accent:        #ccff33;
+  --accent-ink:    #0a0a09;
+
+  /* Bảng màu chuỗi dữ liệu — thứ tự cố định, đã kiểm định mù màu
+     trên đúng nền #131312 (CVD ΔE 9.4 · tương phản ≥ 3:1) */
+  --series-1:      #3987e5;
+  --series-2:      #d95926;
+  --series-3:      #199e70;
+
+  --font: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --maxw: 1240px;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page:           #0d0d0d;
-    --surface-1:      #1a1a19;
-    --surface-2:      #171716;
-    --text-primary:   #ffffff;
-    --text-secondary: #c3c2b7;
-    --text-muted:     #898781;
-    --line:           #2c2c2a;
-    --line-strong:    #383835;
-    --ring:           rgba(255,255,255,0.10);
-    --accent:         #3987e5;
-    --accent-ink:     #86b6ef;
-    --success:        #0ca30c;
-    --series-1:       #3987e5;
-    --series-2:       #d95926;
-    --series-3:       #199e70;
-  }
-}
+
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+
+body {
+  margin: 0; background: var(--bg); color: var(--text-primary);
+  font-family: var(--font); font-size: 16px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 28px; }
+@media (max-width: 560px) { .wrap { padding-inline: 20px; } }
+
+a { color: inherit; text-decoration: none; }
+h1, h2, h3, h4 { margin: 0; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+/* ── Hiệu ứng xuất hiện khi cuộn ───────────────────────────────────── */
+html.js .rv { opacity: 0; transform: translateY(20px); }
+html.js .rv.in { opacity: 1; transform: none; transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  html.js .rv { opacity: 1; transform: none; }
   * { animation: none !important; transition: none !important; }
 }
-body {
-  margin: 0; background: var(--page); color: var(--text-primary);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
-}
-.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
-a { color: var(--accent-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-a:hover { color: var(--accent); }
-h1, h2, h3, h4 { line-height: 1.2; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
 
+/* ── Thanh điều hướng ──────────────────────────────────────────────── */
 .nav {
-  position: sticky; top: 0; z-index: 40;
-  background: color-mix(in srgb, var(--page) 88%, transparent);
-  backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--line);
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  transition: background .3s, border-color .3s, backdrop-filter .3s;
+  border-bottom: 1px solid transparent;
 }
-.nav-inner { display: flex; align-items: center; gap: 28px; height: 62px; }
-.nav-brand { font-weight: 600; letter-spacing: -0.02em; margin-right: auto; }
-.nav-links { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
-.nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14.5px; }
+.nav.stuck {
+  background: rgba(10,10,9,.82);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom-color: var(--line);
+}
+.nav-inner { display: flex; align-items: center; gap: 30px; height: 72px; }
+.nav-brand { font-weight: 800; letter-spacing: -0.03em; font-size: 17px; margin-right: auto; }
+.nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--text-secondary); font-size: 14px; font-weight: 500; position: relative; }
+.nav-links a::after {
+  content: ''; position: absolute; left: 0; right: 100%; bottom: -5px;
+  height: 1px; background: var(--accent); transition: right .28s;
+}
 .nav-links a:hover { color: var(--text-primary); }
-@media (max-width: 780px) { .nav-links { display: none; } }
+.nav-links a:hover::after { right: 0; }
+@media (max-width: 860px) { .nav-links { display: none; } }
 
-.hero { padding: 96px 0 64px; }
+/* ── Mở đầu ────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh; display: flex; align-items: center;
+  padding: 128px 0 72px; position: relative;
+}
+.hero::before {
+  content: ''; position: absolute; z-index: -1;
+  top: -18%; left: 50%; transform: translateX(-50%);
+  width: min(1100px, 130vw); aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(204,255,51,.09) 0%, transparent 62%);
+  pointer-events: none;
+}
 .eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--text-secondary); font-weight: 500;
-  border: 1px solid var(--line); border-radius: 999px;
-  padding: 6px 14px; background: var(--surface-2);
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-secondary); font-weight: 600;
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 7px 16px;
 }
-.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
-.hero h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); margin: 26px 0 0; letter-spacing: -0.035em; }
-.hero .role { font-size: clamp(1.15rem, 2.4vw, 1.5rem); color: var(--text-secondary); font-weight: 400; margin-top: 12px; }
-.hero .lede { max-width: 62ch; margin-top: 22px; font-size: 17.5px; color: var(--text-secondary); }
-.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.dot::after {
+  content: ''; display: block; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); animation: ping 2s ease-out infinite;
+}
+@keyframes ping { 0% { transform: scale(1); opacity: .8 } 100% { transform: scale(3.4); opacity: 0 } }
+
+.hero h1 {
+  font-size: clamp(3rem, 11vw, 8.5rem); font-weight: 900;
+  letter-spacing: -0.045em; line-height: 0.92; margin: 30px 0 0;
+}
+.hero .role {
+  font-size: clamp(1.05rem, 2.3vw, 1.6rem); color: var(--text-secondary);
+  font-weight: 500; margin-top: 20px; letter-spacing: -0.01em;
+}
+.hero .lede { max-width: 60ch; margin-top: 26px; font-size: clamp(15.5px, 1.5vw, 18px); color: var(--text-secondary); }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
 .btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 11px 20px; border-radius: 10px; font-size: 15px; font-weight: 500;
-  text-decoration: none; border: 1px solid transparent; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 13px 24px; border-radius: 999px; font-size: 14.5px; font-weight: 600;
+  border: 1px solid var(--line-strong); cursor: pointer;
+  transition: background .22s, color .22s, border-color .22s, transform .22s;
 }
-.btn-primary { background: var(--text-primary); color: var(--page); }
-.btn-primary:hover { color: var(--page); opacity: .88; }
-.btn-ghost { border-color: var(--line-strong); color: var(--text-primary); background: var(--surface-2); }
-.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-muted); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn-primary:hover { background: #dbff5e; border-color: #dbff5e; }
+.btn-ghost { color: var(--text-primary); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ── Dải chữ chạy ──────────────────────────────────────────────────── */
+.marquee { border-block: 1px solid var(--line); overflow: hidden; padding: 20px 0; }
+.marquee-track { display: flex; width: max-content; animation: slide 46s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span {
+  display: inline-flex; align-items: center; gap: 30px; padding-right: 30px;
+  font-size: clamp(1rem, 2.1vw, 1.7rem); font-weight: 800;
+  letter-spacing: -0.02em; text-transform: uppercase; white-space: nowrap;
+}
+.marquee-track span::after { content: '✦'; color: var(--accent); font-size: .7em; }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ── Chỉ số lớn ────────────────────────────────────────────────────── */
 .stats {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px;
-  background: var(--line); border: 1px solid var(--line);
-  border-radius: var(--radius); overflow: hidden; margin-top: 60px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  border-top: 1px solid var(--line);
 }
-.stat { background: var(--surface-1); padding: 26px 22px; }
-.stat .val { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
-.stat .lbl { font-size: 13.5px; color: var(--text-secondary); margin-top: 8px; }
+.stat { padding: 40px 28px 44px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
+.stat:last-child { border-right: 0; }
+.stat .val {
+  font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 900;
+  letter-spacing: -0.05em; line-height: 1; color: var(--accent);
+}
+.stat .lbl { font-size: 13.5px; color: var(--text-secondary); margin-top: 14px; max-width: 24ch; }
 
-section { padding: 78px 0; border-top: 1px solid var(--line); }
-.sec-head { max-width: 66ch; margin-bottom: 44px; }
-.sec-label { font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-.sec-head h2 { font-size: clamp(1.7rem, 3.6vw, 2.4rem); margin-top: 12px; }
-.sec-head p { color: var(--text-secondary); margin: 14px 0 0; font-size: 16.5px; }
+/* ── Khung mục ─────────────────────────────────────────────────────── */
+section { padding: clamp(80px, 11vw, 150px) 0; }
+.sec-head { margin-bottom: 56px; }
+.sec-label {
+  display: inline-block; font-size: 11.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 700; margin-bottom: 20px;
+}
+.sec-head h2 { font-size: clamp(2rem, 5.2vw, 3.8rem); font-weight: 900; letter-spacing: -0.04em; max-width: 20ch; }
+.sec-head p { color: var(--text-secondary); margin: 22px 0 0; font-size: 16.5px; max-width: 62ch; }
 
-.cases { display: grid; gap: 20px; }
-.case { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 30px; }
-.case-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+/* ── Dự án: danh sách dòng lớn, bấm để mở ──────────────────────────── */
+.cases { border-top: 1px solid var(--line); }
+.case { border-bottom: 1px solid var(--line); }
+.case > summary {
+  display: grid; grid-template-columns: 58px 1fr 40px; gap: 22px; align-items: start;
+  padding: 32px 0; cursor: pointer; list-style: none;
+}
+.case > summary::-webkit-details-marker { display: none; }
+.case-idx { font-size: 12.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; padding-top: 10px; letter-spacing: .1em; }
+.case h3 {
+  font-size: clamp(1.3rem, 3.2vw, 2.35rem); font-weight: 800;
+  letter-spacing: -0.035em; transition: color .25s;
+}
+.case > summary:hover h3 { color: var(--accent); }
+.case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .tag {
-  font-size: 12.5px; font-weight: 500; color: var(--text-secondary);
-  border: 1px solid var(--line); border-radius: 999px; padding: 3px 11px; background: var(--surface-2);
+  font-size: 12px; font-weight: 500; color: var(--text-secondary);
+  border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 12px;
 }
-.case h3 { font-size: 1.35rem; margin: 8px 0 0; }
-.case-meta { font-size: 13.5px; color: var(--text-muted); margin-top: 6px; }
-.case-body { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 22px; }
-@media (max-width: 760px) { .case-body { grid-template-columns: 1fr; gap: 20px; } }
-.case-body h4 { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.plus {
+  width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong);
+  display: grid; place-items: center; margin-top: 6px;
+  transition: transform .3s, border-color .25s, background .25s, color .25s;
+  font-size: 17px; color: var(--text-secondary); line-height: 1;
+}
+.case > summary:hover .plus { border-color: var(--accent); color: var(--accent); }
+.case[open] > summary .plus { transform: rotate(45deg); background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.case-open { padding: 4px 0 40px 80px; }
+@media (max-width: 720px) {
+  .case > summary { grid-template-columns: 34px 1fr 34px; gap: 14px; }
+  .plus { width: 30px; height: 30px; font-size: 15px; }
+  .case-open { padding-left: 0; }
+}
+.case-meta { font-size: 13.5px; color: var(--text-muted); margin: 0 0 26px; }
+.case-body { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; }
+@media (max-width: 760px) { .case-body { grid-template-columns: 1fr; gap: 26px; } }
+.case-body h4 { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; font-weight: 700; }
 .case-body p { margin: 0; color: var(--text-secondary); font-size: 15.5px; }
-.case-body ul { margin: 0; padding-left: 18px; color: var(--text-secondary); font-size: 15.5px; }
-.case-body li { margin-bottom: 5px; }
+.case-body ul { margin: 0; padding: 0; list-style: none; color: var(--text-secondary); font-size: 15.5px; }
+.case-body li { padding-left: 20px; position: relative; margin-bottom: 9px; }
+.case-body li::before { content: ''; position: absolute; left: 0; top: 11px; width: 7px; height: 1px; background: var(--accent); }
 
 .results {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px;
-  background: var(--line); border: 1px solid var(--line);
-  border-radius: 10px; overflow: hidden; margin-top: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 1px; background: var(--line); border: 1px solid var(--line);
+  margin-top: 34px; border-radius: 4px; overflow: hidden;
 }
-.result { background: var(--surface-2); padding: 16px 18px; }
-.result .val { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; color: var(--success); line-height: 1.15; }
-.result .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 4px; }
+.result { background: var(--bg); padding: 22px 20px; }
+.result .val { font-size: clamp(1.6rem, 2.6vw, 2.1rem); font-weight: 900; letter-spacing: -0.04em; color: var(--accent); line-height: 1; }
+.result .lbl { font-size: 12.5px; color: var(--text-secondary); margin-top: 10px; }
 
+/* ── Biểu đồ ───────────────────────────────────────────────────────── */
 .chart-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-figure.chart { margin: 0; background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 26px 20px; }
-figure.chart figcaption { margin-bottom: 4px; }
-.chart-title { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.015em; }
-.chart-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
-.legend { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0 10px; }
-.legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-secondary); }
+figure.chart { margin: 0; background: var(--surface-1); border: 1px solid var(--line); border-radius: 14px; padding: 30px 30px 22px; }
+.chart-title { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.025em; }
+.chart-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 6px; }
+.legend { display: flex; flex-wrap: wrap; gap: 20px; margin: 22px 0 12px; }
+.legend-item { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--text-secondary); }
 .swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
 /* Trên màn hình hẹp biểu đồ cuộn ngang thay vì co nhỏ đến mức không đọc được */
 .chart-canvas { overflow-x: auto; overscroll-behavior-x: contain; }
@@ -179,60 +262,81 @@ figure.chart figcaption { margin-bottom: 4px; }
 .tooltip {
   position: absolute; pointer-events: none; opacity: 0;
   transform: translate(-50%, -100%);
-  background: var(--surface-2); color: var(--text-primary);
-  border: 1px solid var(--ring); border-radius: 9px;
-  padding: 9px 12px; font-size: 13px; line-height: 1.5;
-  box-shadow: 0 6px 22px rgba(0,0,0,.14); white-space: nowrap; z-index: 5;
+  background: var(--bg-3); color: var(--text-primary);
+  border: 1px solid var(--line-strong); border-radius: 9px;
+  padding: 10px 13px; font-size: 13px; line-height: 1.5;
+  box-shadow: 0 10px 30px rgba(0,0,0,.5); white-space: nowrap; z-index: 5;
   transition: opacity .09s ease;
 }
 .tooltip.on { opacity: 1; }
 .tooltip.below { transform: translate(-50%, 0); }
-.tt-head { font-weight: 600; margin-bottom: 4px; }
-.tt-row { display: flex; align-items: center; gap: 7px; }
+.tt-head { font-weight: 700; margin-bottom: 5px; }
+.tt-row { display: flex; align-items: center; gap: 8px; }
 .tt-row .swatch { width: 9px; height: 9px; }
-.tt-val { margin-left: auto; padding-left: 14px; font-variant-numeric: tabular-nums; font-weight: 600; }
+.tt-val { margin-left: auto; padding-left: 16px; font-variant-numeric: tabular-nums; font-weight: 700; }
 
-.chart-foot { display: flex; align-items: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+.chart-foot { display: flex; align-items: center; gap: 16px; margin-top: 16px; flex-wrap: wrap; }
 .link-btn {
-  background: none; border: 0; padding: 0; cursor: pointer;
-  font: inherit; font-size: 13.5px; color: var(--accent-ink);
-  text-decoration: underline; text-underline-offset: 3px;
+  background: none; border: 0; padding: 0; cursor: pointer; font: inherit;
+  font-size: 13.5px; font-weight: 600; color: var(--accent);
+  text-decoration: underline; text-underline-offset: 4px;
 }
 .chart-note { font-size: 12.5px; color: var(--text-muted); }
-.data-table { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13.5px; }
-.data-table caption { text-align: left; font-size: 12.5px; color: var(--text-muted); padding-bottom: 8px; }
-.data-table th, .data-table td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.data-table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 13.5px; }
+.data-table caption { text-align: left; font-size: 12.5px; color: var(--text-muted); padding-bottom: 10px; }
+.data-table th, .data-table td { text-align: right; padding: 8px 11px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
 .data-table th:first-child, .data-table td:first-child { text-align: left; }
-.data-table thead th { color: var(--text-secondary); font-weight: 600; }
+.data-table thead th { color: var(--text-secondary); font-weight: 700; }
 .table-scroll { overflow-x: auto; }
 
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-@media (max-width: 900px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 620px) { .grid-3 { grid-template-columns: 1fr; } }
-.card { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
-.card h3 { font-size: 1.08rem; }
-.card p { color: var(--text-secondary); font-size: 15px; margin: 10px 0 0; }
-.card ul { margin: 14px 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 14.5px; }
-.card li { margin-bottom: 4px; }
-.card-icon {
-  width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
-  background: var(--surface-2); border: 1px solid var(--line); margin-bottom: 16px; font-size: 17px;
+/* ── Năng lực ──────────────────────────────────────────────────────── */
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+@media (max-width: 940px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+.card { background: var(--bg); padding: 36px 30px 38px; transition: background .3s; }
+.card:hover { background: var(--surface-1); }
+.card h3 { font-size: 1.18rem; font-weight: 800; }
+.card p { color: var(--text-secondary); font-size: 15px; margin: 12px 0 0; }
+.card ul { margin: 20px 0 0; padding: 0; list-style: none; color: var(--text-secondary); font-size: 14.5px; }
+.card li { padding-left: 18px; position: relative; margin-bottom: 7px; }
+.card li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 1px; background: var(--accent); }
+.card-icon { font-size: 24px; margin-bottom: 20px; display: block; }
+
+/* ── Quy trình ─────────────────────────────────────────────────────── */
+.steps { border-top: 1px solid var(--line); }
+.step {
+  display: grid; grid-template-columns: 110px 1fr 1.4fr; gap: 28px;
+  padding: 34px 0; border-bottom: 1px solid var(--line); align-items: baseline;
 }
+@media (max-width: 800px) { .step { grid-template-columns: 60px 1fr; gap: 18px; } .step p { grid-column: 2; } }
+.step .n { font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 900; color: var(--text-muted); letter-spacing: -0.04em; }
+.step h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 800; }
+.step p { font-size: 15px; color: var(--text-secondary); margin: 0; }
 
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
-.step { border-top: 2px solid var(--line-strong); padding-top: 16px; }
-.step .n { font-size: 12.5px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.08em; }
-.step h3 { font-size: 1.02rem; margin-top: 8px; }
-.step p { font-size: 14.5px; color: var(--text-secondary); margin: 8px 0 0; }
+/* ── Công cụ ───────────────────────────────────────────────────────── */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip {
+  font-size: 14px; color: var(--text-secondary); border: 1px solid var(--line-strong);
+  border-radius: 999px; padding: 9px 18px; transition: color .22s, border-color .22s;
+}
+.chip:hover { color: var(--accent); border-color: var(--accent); }
 
-.chips { display: flex; flex-wrap: wrap; gap: 9px; }
-.chip { font-size: 14px; color: var(--text-secondary); border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px; background: var(--surface-1); }
+/* ── Liên hệ ───────────────────────────────────────────────────────── */
+#lien-he { border-top: 1px solid var(--line); }
+.contact h2 { font-size: clamp(1.9rem, 5vw, 3.4rem); font-weight: 900; letter-spacing: -0.04em; max-width: 18ch; }
+.contact p { color: var(--text-secondary); max-width: 56ch; margin: 24px 0 0; font-size: 16.5px; }
+.mailto {
+  display: inline-block; margin-top: 44px;
+  font-size: clamp(1.4rem, 5.4vw, 3.4rem); font-weight: 900; letter-spacing: -0.045em;
+  border-bottom: 2px solid var(--line-strong); padding-bottom: 8px;
+  transition: color .25s, border-color .25s; word-break: break-word;
+}
+.mailto:hover { color: var(--accent); border-color: var(--accent); }
 
-.contact { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius); padding: 46px; }
-.contact h2 { font-size: clamp(1.6rem, 3.4vw, 2.2rem); }
-.contact p { color: var(--text-secondary); max-width: 56ch; margin: 14px 0 0; }
-footer { border-top: 1px solid var(--line); padding: 30px 0 46px; font-size: 13.5px; color: var(--text-muted); }
-footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; }
+footer { border-top: 1px solid var(--line); padding: 34px 0 52px; font-size: 13.5px; color: var(--text-muted); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; align-items: center; }
+.foot-links { display: flex; gap: 20px; }
+.foot-links a:hover { color: var(--accent); }
 
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
@@ -259,234 +363,249 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Đang nhận dự án tư vấn</span>
-
-    <h1>Nguyễn Anh</h1>
-    <p class="role">Senior SEO Specialist · 8+ năm triển khai SEO tăng trưởng</p>
-
-    <p class="lede">Tôi xây hệ thống SEO cho những website phức tạp — thương mại điện tử hàng chục nghìn URL, ngành YMYL bị siết E-E-A-T, chuỗi thương hiệu đa chi nhánh. Cách làm của tôi bắt đầu từ dữ liệu và kiến trúc, không bắt đầu từ danh sách từ khóa: hiểu Google đang đọc website như thế nào, sửa cái đang chặn, rồi mới mở rộng nội dung.</p>
-
-    <div class="cta-row">
+    <span class="eyebrow rv"><span class="dot" aria-hidden="true"></span> Đang nhận dự án tư vấn</span>
+    <h1 class="rv" data-delay="60">Nguyễn Anh</h1>
+    <p class="role rv" data-delay="120">Senior SEO Specialist · 8+ năm triển khai SEO tăng trưởng</p>
+    <p class="lede rv" data-delay="180">Tôi xây hệ thống SEO cho những website phức tạp — thương mại điện tử hàng chục nghìn URL, ngành YMYL bị siết E-E-A-T, chuỗi thương hiệu đa chi nhánh. Cách làm của tôi bắt đầu từ dữ liệu và kiến trúc, không bắt đầu từ danh sách từ khóa: hiểu Google đang đọc website như thế nào, sửa cái đang chặn, rồi mới mở rộng nội dung.</p>
+    <div class="cta-row rv" data-delay="240">
       <a class="btn btn-primary" href="#case-studies">Xem 6 dự án tiêu biểu</a>
       <a class="btn btn-ghost" href="#lien-he">Liên hệ hợp tác</a>
-    </div>
-
-    <div class="stats">
-        <div class="stat"><div class="val">8+</div><div class="lbl">Năm kinh nghiệm SEO</div></div>
-        <div class="stat"><div class="val">24</div><div class="lbl">Dự án đã triển khai</div></div>
-        <div class="stat"><div class="val">+412%</div><div class="lbl">Traffic organic trung bình sau 12 tháng</div></div>
-        <div class="stat"><div class="val">3.860</div><div class="lbl">Từ khóa đưa lên top 10</div></div>
     </div>
   </div>
 </header>
 
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track"><span>Technical SEO</span><span>Semantic SEO</span><span>E-E-A-T</span><span>Local SEO</span><span>SEO Analytics</span><span>Generative Engine Optimization</span><span>Core Web Vitals</span><span>Programmatic SEO</span><span>Entity SEO</span><span>Technical SEO</span><span>Semantic SEO</span><span>E-E-A-T</span><span>Local SEO</span><span>SEO Analytics</span><span>Generative Engine Optimization</span><span>Core Web Vitals</span><span>Programmatic SEO</span><span>Entity SEO</span></div>
+</div>
+
+<section class="stats-sec" style="padding:0">
+  <div class="stats">
+      <div class="stat rv" data-delay="0"><div class="val">8+</div><div class="lbl">Năm kinh nghiệm SEO</div></div>
+      <div class="stat rv" data-delay="70"><div class="val">24</div><div class="lbl">Dự án đã triển khai</div></div>
+      <div class="stat rv" data-delay="140"><div class="val">+412%</div><div class="lbl">Traffic organic trung bình sau 12 tháng</div></div>
+      <div class="stat rv" data-delay="210"><div class="val">3.860</div><div class="lbl">Từ khóa đưa lên top 10</div></div>
+  </div>
+</section>
+
 <section id="case-studies">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">Dự án tiêu biểu</div>
       <h2>Sáu bài toán SEO khác nhau, sáu cách giải khác nhau</h2>
-      <p>Mỗi dự án dưới đây được mô tả theo cùng một cấu trúc: bối cảnh khi tiếp nhận, việc đã làm, và kết quả đo được. Số liệu lấy từ Google Search Console và GA4 tại thời điểm kết thúc giai đoạn.</p>
+      <p>Mỗi dự án dưới đây được mô tả theo cùng một cấu trúc: bối cảnh khi tiếp nhận, việc đã làm, và kết quả đo được. Số liệu lấy từ Google Search Console và GA4 tại thời điểm kết thúc giai đoạn. Bấm vào từng dòng để mở chi tiết.</p>
     </div>
 
     <div class="cases">
 
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">E-commerce</span>
-          <span class="tag">Nội thất cao cấp</span>
-          <span class="tag">14 tháng</span>
-        </div>
-        <h3>Tái cấu trúc website 12.000 URL và mở khoá tăng trưởng sau 18 tháng đi ngang</h3>
-        <p class="case-meta">Vai trò: SEO Lead · Đội ngũ: 1 dev, 2 content, 1 SEO executive</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Website có 12.000 URL nhưng chỉ 32% được Google index như trang hữu ích. Danh mục và bộ lọc sinh ra hàng nghìn URL trùng nội dung, cannibalization xảy ra ở hầu hết cụm sản phẩm chính. Traffic organic đi ngang suốt 18 tháng dù vẫn xuất bản đều.</p>
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">01</span>
+          <span>
+            <h3>Tái cấu trúc website 12.000 URL và mở khoá tăng trưởng sau 18 tháng đi ngang</h3>
+            <span class="case-tags"><span class="tag">E-commerce</span><span class="tag">Nội thất cao cấp</span><span class="tag">14 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: SEO Lead · Đội ngũ: 1 dev, 2 content, 1 SEO executive</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Website có 12.000 URL nhưng chỉ 32% được Google index như trang hữu ích. Danh mục và bộ lọc sinh ra hàng nghìn URL trùng nội dung, cannibalization xảy ra ở hầu hết cụm sản phẩm chính. Traffic organic đi ngang suốt 18 tháng dù vẫn xuất bản đều.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Thiết kế lại taxonomy danh mục, gộp 340 trang trùng lặp về trang chuẩn</li>
+                <li>Xử lý index bloat: chặn URL bộ lọc bằng robots + canonical, dọn 4.100 URL rác</li>
+                <li>Xây entity hub theo cụm chủ đề, nối internal link theo mô hình pillar–cluster</li>
+                <li>Tối ưu Core Web Vitals: LCP từ 4,1s xuống 1,8s (lazy-load, ảnh WebP, critical CSS)</li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Thiết kế lại taxonomy danh mục, gộp 340 trang trùng lặp về trang chuẩn</li>
-              <li>Xử lý index bloat: chặn URL bộ lọc bằng robots + canonical, dọn 4.100 URL rác</li>
-              <li>Xây entity hub theo cụm chủ đề, nối internal link theo mô hình pillar–cluster</li>
-              <li>Tối ưu Core Web Vitals: LCP từ 4,1s xuống 1,8s (lazy-load, ảnh WebP, critical CSS)</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="results">
-          <div class="result"><div class="val">+520%</div><div class="lbl">Traffic organic</div></div>
-          <div class="result"><div class="val">386</div><div class="lbl">Từ khóa top 3 (từ 42)</div></div>
-          <div class="result"><div class="val">+310%</div><div class="lbl">Doanh thu từ organic</div></div>
-          <div class="result"><div class="val">91%</div><div class="lbl">Tỷ lệ index hữu ích (từ 32%)</div></div>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">Fintech</span>
-          <span class="tag">YMYL</span>
-          <span class="tag">12 tháng</span>
-        </div>
-        <h3>Khôi phục và vượt đỉnh sau Helpful Content Update trong ngành vay tiêu dùng</h3>
-        <p class="case-meta">Vai trò: SEO Consultant · Trọng tâm: E-E-A-T và chất lượng nội dung</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Mất 47% traffic organic sau Helpful Content Update. Ngành tài chính thuộc nhóm YMYL nên tín hiệu chuyên môn yếu là điểm chết: nội dung không ghi tác giả, không trích nguồn, 240 bài viết mỏng chỉ diễn giải lại nhau.</p>
-          </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Xây hệ thống tác giả có hồ sơ chuyên môn thật, gắn schema Person và liên kết thực thể</li>
-              <li>Chuẩn hoá trích dẫn nguồn cấp 1: văn bản NHNN, thông tư, báo cáo ngành</li>
-              <li>Audit và viết lại 240 bài mỏng; gộp 86 bài trùng chủ đề</li>
-              <li>Bổ sung schema Organization, FAQ, quy trình kiểm duyệt nội dung hiển thị công khai</li>
-            </ul>
+          <div class="results">
+            <div class="result"><div class="val">+520%</div><div class="lbl">Traffic organic</div></div>
+            <div class="result"><div class="val">386</div><div class="lbl">Từ khóa top 3 (từ 42)</div></div>
+            <div class="result"><div class="val">+310%</div><div class="lbl">Doanh thu từ organic</div></div>
+            <div class="result"><div class="val">91%</div><div class="lbl">Tỷ lệ index hữu ích (từ 32%)</div></div>
           </div>
         </div>
+      </details>
 
-        <div class="results">
-          <div class="result"><div class="val">5 tháng</div><div class="lbl">Phục hồi 100% traffic đã mất</div></div>
-          <div class="result"><div class="val">+280%</div><div class="lbl">So với đỉnh trước update</div></div>
-          <div class="result"><div class="val">1.240</div><div class="lbl">Từ khóa top 10</div></div>
-          <div class="result"><div class="val">−44%</div><div class="lbl">Chi phí mỗi lead (CPL)</div></div>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">Y tế</span>
-          <span class="tag">Local SEO</span>
-          <span class="tag">9 tháng</span>
-        </div>
-        <h3>Local SEO cho chuỗi 18 phòng khám: từ NAP hỗn loạn đến top 3 Local Pack</h3>
-        <p class="case-meta">Vai trò: SEO Lead · Phạm vi: 18 chi nhánh tại 6 tỉnh thành</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Mười tám hồ sơ Google Business Profile do các chi nhánh tự quản lý, thông tin NAP không đồng nhất, nhiều hồ sơ trùng. Website không có trang đích theo khu vực nên toàn bộ truy vấn dịch vụ kèm địa danh rơi vào tay đối thủ.</p>
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">02</span>
+          <span>
+            <h3>Khôi phục và vượt đỉnh sau Helpful Content Update trong ngành vay tiêu dùng</h3>
+            <span class="case-tags"><span class="tag">Fintech</span><span class="tag">YMYL</span><span class="tag">12 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: SEO Consultant · Trọng tâm: E-E-A-T và chất lượng nội dung</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Mất 47% traffic organic sau Helpful Content Update. Ngành tài chính thuộc nhóm YMYL nên tín hiệu chuyên môn yếu là điểm chết: nội dung không ghi tác giả, không trích nguồn, 240 bài viết mỏng chỉ diễn giải lại nhau.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Xây hệ thống tác giả có hồ sơ chuyên môn thật, gắn schema Person và liên kết thực thể</li>
+                <li>Chuẩn hoá trích dẫn nguồn cấp 1: văn bản NHNN, thông tư, báo cáo ngành</li>
+                <li>Audit và viết lại 240 bài mỏng; gộp 86 bài trùng chủ đề</li>
+                <li>Bổ sung schema Organization, FAQ, quy trình kiểm duyệt nội dung hiển thị công khai</li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Chuẩn hoá NAP toàn hệ thống, gộp hồ sơ trùng, thống nhất danh mục dịch vụ trên GBP</li>
-              <li>Xây 18 landing page theo địa bàn với nội dung riêng, gắn schema MedicalClinic</li>
-              <li>Thiết lập quy trình thu thập đánh giá và phản hồi trong 24 giờ</li>
-              <li>Tối ưu bài đăng GBP định kỳ, ảnh thực tế và mục hỏi đáp cho từng chi nhánh</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="results">
-          <div class="result"><div class="val">+410%</div><div class="lbl">Cuộc gọi từ Google Business Profile</div></div>
-          <div class="result"><div class="val">84/96</div><div class="lbl">Từ khóa vào top 3 Local Pack</div></div>
-          <div class="result"><div class="val">+365%</div><div class="lbl">Traffic organic</div></div>
-          <div class="result"><div class="val">+228%</div><div class="lbl">Lượt đặt lịch online</div></div>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">SaaS B2B</span>
-          <span class="tag">Programmatic SEO</span>
-          <span class="tag">16 tháng</span>
-        </div>
-        <h3>Programmatic SEO đưa một SaaS Việt ra thị trường Đông Nam Á</h3>
-        <p class="case-meta">Vai trò: Head of SEO · Ngôn ngữ: tiếng Việt và tiếng Anh</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Sản phẩm muốn mở rộng ra khu vực nhưng toàn bộ nội dung chỉ có tiếng Việt, không có cấu trúc đa ngôn ngữ. Nội dung tập trung ở giai đoạn nhận biết, thiếu hẳn các truy vấn cuối phễu nơi người dùng đã sẵn sàng chọn công cụ.</p>
-          </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Thiết lập cấu trúc đa ngôn ngữ với hreflang, tách sitemap theo thị trường</li>
-              <li>Xây 1.200 trang programmatic dạng so sánh và thay thế công cụ, có kiểm duyệt chất lượng</li>
-              <li>Bổ sung nội dung cuối phễu: bảng giá, tích hợp, use case theo ngành</li>
-              <li>Chiến dịch digital PR thu về 68 backlink từ tên miền DR 50+</li>
-            </ul>
+          <div class="results">
+            <div class="result"><div class="val">5 tháng</div><div class="lbl">Phục hồi 100% traffic đã mất</div></div>
+            <div class="result"><div class="val">+280%</div><div class="lbl">So với đỉnh trước update</div></div>
+            <div class="result"><div class="val">1.240</div><div class="lbl">Từ khóa top 10</div></div>
+            <div class="result"><div class="val">−44%</div><div class="lbl">Chi phí mỗi lead (CPL)</div></div>
           </div>
         </div>
+      </details>
 
-        <div class="results">
-          <div class="result"><div class="val">+740%</div><div class="lbl">Traffic organic</div></div>
-          <div class="result"><div class="val">+196%</div><div class="lbl">MQL đến từ organic</div></div>
-          <div class="result"><div class="val">21 → 54</div><div class="lbl">Domain Rating</div></div>
-          <div class="result"><div class="val">38%</div><div class="lbl">Tổng traffic đến từ trang programmatic</div></div>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">Bất động sản</span>
-          <span class="tag">Core Update</span>
-          <span class="tag">7 tháng</span>
-        </div>
-        <h3>Cắt bỏ 410 bài viết để cứu một website bất động sản sau Core Update</h3>
-        <p class="case-meta">Vai trò: SEO Consultant · Trọng tâm: content pruning và cannibalization</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Mất 62% lượt hiển thị sau Core Update tháng 3. Nguyên nhân chính: gần 900 bài sản xuất hàng loạt bằng AI, không kiểm chứng số liệu thị trường, 94 cụm từ khóa bị nhiều bài cùng cạnh tranh.</p>
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">03</span>
+          <span>
+            <h3>Local SEO cho chuỗi 18 phòng khám: từ NAP hỗn loạn đến top 3 Local Pack</h3>
+            <span class="case-tags"><span class="tag">Y tế</span><span class="tag">Local SEO</span><span class="tag">9 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: SEO Lead · Phạm vi: 18 chi nhánh tại 6 tỉnh thành</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Mười tám hồ sơ Google Business Profile do các chi nhánh tự quản lý, thông tin NAP không đồng nhất, nhiều hồ sơ trùng. Website không có trang đích theo khu vực nên toàn bộ truy vấn dịch vụ kèm địa danh rơi vào tay đối thủ.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Chuẩn hoá NAP toàn hệ thống, gộp hồ sơ trùng, thống nhất danh mục dịch vụ trên GBP</li>
+                <li>Xây 18 landing page theo địa bàn với nội dung riêng, gắn schema MedicalClinic</li>
+                <li>Thiết lập quy trình thu thập đánh giá và phản hồi trong 24 giờ</li>
+                <li>Tối ưu bài đăng GBP định kỳ, ảnh thực tế và mục hỏi đáp cho từng chi nhánh</li>
+              </ul>
+            </div>
           </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Audit toàn bộ 890 bài theo hiệu suất và giá trị thông tin thực tế</li>
-              <li>Xoá và gộp 410 bài giá trị thấp, chuyển hướng 301 về trang chuẩn</li>
-              <li>Viết lại 180 bài cốt lõi bằng dữ liệu giao dịch và quy hoạch có nguồn</li>
-              <li>Giải quyết cannibalization ở 94 cụm từ khóa, phân vai rõ cho từng URL</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="results">
-          <div class="result"><div class="val">118%</div><div class="lbl">Hiển thị so với trước update</div></div>
-          <div class="result"><div class="val">+145%</div><div class="lbl">Traffic organic</div></div>
-          <div class="result"><div class="val">+82%</div><div class="lbl">Thời gian trên trang</div></div>
-          <div class="result"><div class="val">−31%</div><div class="lbl">Tỷ lệ thoát</div></div>
-        </div>
-      </article>
-
-      <article class="case">
-        <div class="case-top">
-          <span class="tag">Giáo dục</span>
-          <span class="tag">GEO / AI Search</span>
-          <span class="tag">6 tháng</span>
-        </div>
-        <h3>Tối ưu hiện diện trong AI Overview và các công cụ tìm kiếm AI</h3>
-        <p class="case-meta">Vai trò: SEO Strategist · Trọng tâm: entity và định dạng trích dẫn</p>
-
-        <div class="case-body">
-          <div>
-            <h4>Bối cảnh</h4>
-            <p>Traffic giảm dần dù thứ hạng giữ nguyên: AI Overview trả lời trực tiếp nên người dùng không còn nhấp vào kết quả. Thương hiệu hoàn toàn vắng mặt trong câu trả lời của ChatGPT và Perplexity cho các truy vấn thuộc lĩnh vực của mình.</p>
-          </div>
-          <div>
-            <h4>Việc đã làm</h4>
-            <ul>
-              <li>Cấu trúc lại nội dung theo dạng trả lời trước, giải thích sau để dễ được trích dẫn</li>
-              <li>Xây thực thể thương hiệu trên Wikidata và củng cố tín hiệu Knowledge Graph</li>
-              <li>Chuẩn hoá schema chi tiết cho khoá học, giảng viên, đánh giá</li>
-              <li>Theo dõi tần suất được trích dẫn trong AI Overview bằng script tự viết</li>
-            </ul>
+          <div class="results">
+            <div class="result"><div class="val">+410%</div><div class="lbl">Cuộc gọi từ Google Business Profile</div></div>
+            <div class="result"><div class="val">84/96</div><div class="lbl">Từ khóa vào top 3 Local Pack</div></div>
+            <div class="result"><div class="val">+365%</div><div class="lbl">Traffic organic</div></div>
+            <div class="result"><div class="val">+228%</div><div class="lbl">Lượt đặt lịch online</div></div>
           </div>
         </div>
+      </details>
 
-        <div class="results">
-          <div class="result"><div class="val">156</div><div class="lbl">Lượt được trích dẫn trong AI Overview</div></div>
-          <div class="result"><div class="val">+890%</div><div class="lbl">Traffic giới thiệu từ công cụ AI</div></div>
-          <div class="result"><div class="val">+67%</div><div class="lbl">Lượt tìm kiếm thương hiệu</div></div>
-          <div class="result"><div class="val">4/6</div><div class="lbl">Chủ đề có mặt trong câu trả lời AI</div></div>
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">04</span>
+          <span>
+            <h3>Programmatic SEO đưa một SaaS Việt ra thị trường Đông Nam Á</h3>
+            <span class="case-tags"><span class="tag">SaaS B2B</span><span class="tag">Programmatic SEO</span><span class="tag">16 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: Head of SEO · Ngôn ngữ: tiếng Việt và tiếng Anh</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Sản phẩm muốn mở rộng ra khu vực nhưng toàn bộ nội dung chỉ có tiếng Việt, không có cấu trúc đa ngôn ngữ. Nội dung tập trung ở giai đoạn nhận biết, thiếu hẳn các truy vấn cuối phễu nơi người dùng đã sẵn sàng chọn công cụ.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Thiết lập cấu trúc đa ngôn ngữ với hreflang, tách sitemap theo thị trường</li>
+                <li>Xây 1.200 trang programmatic dạng so sánh và thay thế công cụ, có kiểm duyệt chất lượng</li>
+                <li>Bổ sung nội dung cuối phễu: bảng giá, tích hợp, use case theo ngành</li>
+                <li>Chiến dịch digital PR thu về 68 backlink từ tên miền DR 50+</li>
+              </ul>
+            </div>
+          </div>
+          <div class="results">
+            <div class="result"><div class="val">+740%</div><div class="lbl">Traffic organic</div></div>
+            <div class="result"><div class="val">+196%</div><div class="lbl">MQL đến từ organic</div></div>
+            <div class="result"><div class="val">21 → 54</div><div class="lbl">Domain Rating</div></div>
+            <div class="result"><div class="val">38%</div><div class="lbl">Tổng traffic đến từ trang programmatic</div></div>
+          </div>
         </div>
-      </article>
+      </details>
+
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">05</span>
+          <span>
+            <h3>Cắt bỏ 410 bài viết để cứu một website bất động sản sau Core Update</h3>
+            <span class="case-tags"><span class="tag">Bất động sản</span><span class="tag">Core Update</span><span class="tag">7 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: SEO Consultant · Trọng tâm: content pruning và cannibalization</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Mất 62% lượt hiển thị sau Core Update tháng 3. Nguyên nhân chính: gần 900 bài sản xuất hàng loạt bằng AI, không kiểm chứng số liệu thị trường, 94 cụm từ khóa bị nhiều bài cùng cạnh tranh.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Audit toàn bộ 890 bài theo hiệu suất và giá trị thông tin thực tế</li>
+                <li>Xoá và gộp 410 bài giá trị thấp, chuyển hướng 301 về trang chuẩn</li>
+                <li>Viết lại 180 bài cốt lõi bằng dữ liệu giao dịch và quy hoạch có nguồn</li>
+                <li>Giải quyết cannibalization ở 94 cụm từ khóa, phân vai rõ cho từng URL</li>
+              </ul>
+            </div>
+          </div>
+          <div class="results">
+            <div class="result"><div class="val">118%</div><div class="lbl">Hiển thị so với trước update</div></div>
+            <div class="result"><div class="val">+145%</div><div class="lbl">Traffic organic</div></div>
+            <div class="result"><div class="val">+82%</div><div class="lbl">Thời gian trên trang</div></div>
+            <div class="result"><div class="val">−31%</div><div class="lbl">Tỷ lệ thoát</div></div>
+          </div>
+        </div>
+      </details>
+
+      <details class="case rv" name="case">
+        <summary>
+          <span class="case-idx">06</span>
+          <span>
+            <h3>Tối ưu hiện diện trong AI Overview và các công cụ tìm kiếm AI</h3>
+            <span class="case-tags"><span class="tag">Giáo dục</span><span class="tag">GEO / AI Search</span><span class="tag">6 tháng</span></span>
+          </span>
+          <span class="plus" aria-hidden="true">+</span>
+        </summary>
+        <div class="case-open">
+          <p class="case-meta">Vai trò: SEO Strategist · Trọng tâm: entity và định dạng trích dẫn</p>
+          <div class="case-body">
+            <div>
+              <h4>Bối cảnh</h4>
+              <p>Traffic giảm dần dù thứ hạng giữ nguyên: AI Overview trả lời trực tiếp nên người dùng không còn nhấp vào kết quả. Thương hiệu hoàn toàn vắng mặt trong câu trả lời của ChatGPT và Perplexity cho các truy vấn thuộc lĩnh vực của mình.</p>
+            </div>
+            <div>
+              <h4>Việc đã làm</h4>
+              <ul>
+                <li>Cấu trúc lại nội dung theo dạng trả lời trước, giải thích sau để dễ được trích dẫn</li>
+                <li>Xây thực thể thương hiệu trên Wikidata và củng cố tín hiệu Knowledge Graph</li>
+                <li>Chuẩn hoá schema chi tiết cho khoá học, giảng viên, đánh giá</li>
+                <li>Theo dõi tần suất được trích dẫn trong AI Overview bằng script tự viết</li>
+              </ul>
+            </div>
+          </div>
+          <div class="results">
+            <div class="result"><div class="val">156</div><div class="lbl">Lượt được trích dẫn trong AI Overview</div></div>
+            <div class="result"><div class="val">+890%</div><div class="lbl">Traffic giới thiệu từ công cụ AI</div></div>
+            <div class="result"><div class="val">+67%</div><div class="lbl">Lượt tìm kiếm thương hiệu</div></div>
+            <div class="result"><div class="val">4/6</div><div class="lbl">Chủ đề có mặt trong câu trả lời AI</div></div>
+          </div>
+        </div>
+      </details>
 
     </div>
   </div>
@@ -494,7 +613,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
 <section id="ket-qua">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">Kết quả đo được</div>
       <h2>Tăng trưởng nhìn theo thời gian, không nhìn theo ảnh chụp màn hình</h2>
       <p>Hai biểu đồ dưới đây lấy từ ba dự án dài hạn. Traffic được quy về chỉ số gốc 100 ở tháng bắt đầu để so sánh được giữa các website có quy mô rất khác nhau.</p>
@@ -502,7 +621,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
     <div class="chart-grid">
 
-      <figure class="chart">
+      <figure class="chart rv">
         <figcaption>
           <div class="chart-title">Tăng trưởng traffic organic theo tháng</div>
           <div class="chart-sub">Chỉ số hoá, tháng 0 = 100. Ba dự án dài hạn, dữ liệu Google Search Console.</div>
@@ -516,7 +635,7 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         <div class="table-scroll" id="growthTable" hidden></div>
       </figure>
 
-      <figure class="chart">
+      <figure class="chart rv">
         <figcaption>
           <div class="chart-title">Phân bố thứ hạng từ khóa trước và sau 12 tháng</div>
           <div class="chart-sub">Dự án E-commerce nội thất — 2.091 từ khóa theo dõi.</div>
@@ -536,15 +655,15 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
 <section id="nang-luc">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">Năng lực chuyên môn</div>
       <h2>Sáu mảng tôi làm trực tiếp, không chỉ điều phối</h2>
     </div>
 
     <div class="grid-3">
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">⚙️</div>
+      <article class="card rv" data-delay="0">
+        <span class="card-icon" aria-hidden="true">⚙️</span>
         <h3>Technical SEO</h3>
         <p>Xử lý những thứ chặn Google trước khi nghĩ đến nội dung.</p>
         <ul>
@@ -555,8 +674,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         </ul>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">🧠</div>
+      <article class="card rv" data-delay="80">
+        <span class="card-icon" aria-hidden="true">🧠</span>
         <h3>Semantic &amp; Entity SEO</h3>
         <p>Xây kiến trúc chủ đề để website được hiểu như một thực thể có thẩm quyền.</p>
         <ul>
@@ -566,8 +685,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         </ul>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">🛡️</div>
+      <article class="card rv" data-delay="160">
+        <span class="card-icon" aria-hidden="true">🛡️</span>
         <h3>E-E-A-T cho ngành YMYL</h3>
         <p>Chuẩn hoá tín hiệu chuyên môn cho tài chính, y tế, pháp lý.</p>
         <ul>
@@ -577,8 +696,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         </ul>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">📍</div>
+      <article class="card rv" data-delay="0">
+        <span class="card-icon" aria-hidden="true">📍</span>
         <h3>Local SEO đa chi nhánh</h3>
         <p>Chuẩn hoá hiện diện địa phương cho chuỗi và hệ thống nhượng quyền.</p>
         <ul>
@@ -588,8 +707,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         </ul>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">📊</div>
+      <article class="card rv" data-delay="80">
+        <span class="card-icon" aria-hidden="true">📊</span>
         <h3>SEO Analytics &amp; tự động hoá</h3>
         <p>Đo được thì mới cải thiện được — và không đo bằng tay.</p>
         <ul>
@@ -599,8 +718,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
         </ul>
       </article>
 
-      <article class="card">
-        <div class="card-icon" aria-hidden="true">✨</div>
+      <article class="card rv" data-delay="160">
+        <span class="card-icon" aria-hidden="true">✨</span>
         <h3>GEO — tối ưu cho tìm kiếm AI</h3>
         <p>Giữ hiện diện khi câu trả lời không còn nằm ở trang kết quả.</p>
         <ul>
@@ -616,33 +735,33 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
 <section id="quy-trinh">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">Cách tôi làm việc</div>
       <h2>Năm giai đoạn, kết thúc mỗi giai đoạn đều có thứ bàn giao được</h2>
     </div>
 
     <div class="steps">
-      <div class="step">
+      <div class="step rv">
         <div class="n">01</div>
         <h3>Audit &amp; đo lường</h3>
         <p>Crawl toàn site, đọc log file, dựng lại hệ đo lường. Kết thúc bằng danh sách vấn đề đã xếp theo mức tác động.</p>
       </div>
-      <div class="step">
+      <div class="step rv">
         <div class="n">02</div>
         <h3>Chiến lược &amp; kiến trúc</h3>
         <p>Bản đồ chủ đề, cấu trúc URL, phân vai từng trang. Chốt chỉ số mục tiêu và mốc thời gian trước khi triển khai.</p>
       </div>
-      <div class="step">
+      <div class="step rv">
         <div class="n">03</div>
         <h3>Triển khai kỹ thuật</h3>
         <p>Làm việc trực tiếp với đội dev: ticket cụ thể, tiêu chí nghiệm thu rõ, kiểm tra lại sau khi lên production.</p>
       </div>
-      <div class="step">
+      <div class="step rv">
         <div class="n">04</div>
         <h3>Nội dung &amp; thực thể</h3>
         <p>Brief chi tiết cho người viết, chuẩn E-E-A-T, schema và internal link gắn ngay khi xuất bản.</p>
       </div>
-      <div class="step">
+      <div class="step rv">
         <div class="n">05</div>
         <h3>Đo lường &amp; mở rộng</h3>
         <p>Báo cáo hai tuần một lần theo chỉ số kinh doanh, không chỉ thứ hạng. Nhân rộng những gì đã chứng minh hiệu quả.</p>
@@ -653,11 +772,11 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 
 <section id="cong-cu">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head rv">
       <div class="sec-label">Bộ công cụ</div>
       <h2>Công cụ dùng hằng ngày</h2>
     </div>
-    <div class="chips">
+    <div class="chips rv">
       <span class="chip">Screaming Frog</span>
       <span class="chip">Sitebulb</span>
       <span class="chip">Ahrefs</span>
@@ -677,14 +796,12 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 </section>
 
 <section id="lien-he">
-  <div class="wrap">
-    <div class="contact">
-      <h2>Cần một người nhìn ra vấn đề trước khi nó ăn mất traffic?</h2>
-      <p>Tôi nhận tư vấn audit, triển khai dài hạn và đào tạo đội in-house. Gửi cho tôi tên miền và bài toán bạn đang gặp — tôi sẽ phản hồi trong 24 giờ.</p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:kythuatseo@seongon.com">kythuatseo@seongon.com</a>
-        <a class="btn btn-ghost" href="https://github.com/anhnhnwork-code" rel="noopener">GitHub</a>
-      </div>
+  <div class="wrap contact">
+    <h2 class="rv">Cần một người nhìn ra vấn đề trước khi nó ăn mất traffic?</h2>
+    <p class="rv" data-delay="80">Tôi nhận tư vấn audit, triển khai dài hạn và đào tạo đội in-house. Gửi cho tôi tên miền và bài toán bạn đang gặp — tôi sẽ phản hồi trong 24 giờ.</p>
+    <a class="mailto rv" data-delay="140" href="mailto:kythuatseo@seongon.com">kythuatseo@seongon.com</a>
+    <div class="cta-row rv" data-delay="200">
+      <a class="btn btn-ghost" href="https://github.com/anhnhnwork-code" rel="noopener">GitHub</a>
     </div>
   </div>
 </section>
@@ -694,7 +811,10 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space
 <footer>
   <div class="wrap">
     <span>© <span id="year">2026</span> Nguyễn Anh · Senior SEO Specialist</span>
-    <span>Số liệu cập nhật theo Google Search Console &amp; GA4</span>
+    <span class="foot-links">
+      <a href="#main">Lên đầu trang</a>
+    </span>
+    <span>Số liệu theo Google Search Console &amp; GA4</span>
   </div>
 </footer>
 
@@ -759,8 +879,7 @@ const RANK = {"categories":["Top 1–3","Top 4–10","Top 11–20","Top 21–50"
     const x = i => n === 1 ? padL + plotW / 2 : padL + (plotW * i) / (n - 1);
     const y = v => padT + plotH - (plotH * v) / scale.max;
 
-    const svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img',
-      'aria-label': GROWTH.alt });
+    const svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': GROWTH.alt });
 
     scale.ticks.forEach(v => {
       svg.appendChild(el('line', { x1: padL, x2: padL + plotW, y1: y(v), y2: y(v),
@@ -791,7 +910,7 @@ const RANK = {"categories":["Top 1–3","Top 4–10","Top 11–20","Top 21–50"
         fill: s.color, stroke: 'var(--surface-1)', 'stroke-width': 2 }));
 
       const lbl = el('text', { x: x(n - 1) + 12, y: y(last) - 3,
-        fill: 'var(--text-primary)', 'font-size': 12.5, 'font-weight': 600 });
+        fill: 'var(--text-primary)', 'font-size': 12.5, 'font-weight': 700 });
       lbl.textContent = nf.format(last);
       svg.appendChild(lbl);
 
@@ -923,7 +1042,7 @@ const RANK = {"categories":["Top 1–3","Top 4–10","Top 11–20","Top 21–50"
         p.addEventListener('mouseleave', () => tip.classList.remove('on'));
 
         const lbl = el('text', { x: bx + barW / 2, y: by - 8, 'text-anchor': 'middle',
-          fill: 'var(--text-secondary)', 'font-size': 11.5, 'font-weight': 600 });
+          fill: 'var(--text-secondary)', 'font-size': 11.5, 'font-weight': 700 });
         lbl.setAttribute('style', 'font-variant-numeric:tabular-nums');
         lbl.textContent = nf.format(v);
         svg.appendChild(lbl);
@@ -963,6 +1082,29 @@ const RANK = {"categories":["Top 1–3","Top 4–10","Top 11–20","Top 21–50"
   drawGrowth();
   drawRank();
 })(GROWTH, RANK);
+(function pageRuntime() {
+  const nav = document.querySelector('.nav');
+  const onScroll = () => nav && nav.classList.toggle('stuck', window.scrollY > 24);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach(t => t.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const d = e.target.dataset.delay;
+        if (d) e.target.style.transitionDelay = d + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.06 });
+    targets.forEach(t => io.observe(t));
+  }
+})();
 </script>
 
 </body>
