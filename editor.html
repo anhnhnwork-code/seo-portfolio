@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Trình soạn nội dung — Portfolio SEO</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✏️</text></svg>">
+<style>
+:root {
+  color-scheme: light;
+  --page: #f4f4f2;
+  --panel: #ffffff;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-3: #898781;
+  --line: #e1e0d9;
+  --line-2: #c3c2b7;
+  --accent: #2a78d6;
+  --accent-ink: #184f95;
+  --danger: #d03b3b;
+  --ok: #0ca30c;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 15px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Thanh công cụ ─────────────────────────────────────────────── */
+.bar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 11px 18px; background: var(--panel);
+  border-bottom: 1px solid var(--line);
+}
+.bar h1 { font-size: 15px; margin: 0 auto 0 0; font-weight: 600; letter-spacing: -0.01em; }
+.bar .hint { font-size: 12.5px; color: var(--ink-3); margin-right: auto; }
+button {
+  font: inherit; font-size: 13.5px; cursor: pointer;
+  border: 1px solid var(--line-2); background: #fff; color: var(--ink);
+  border-radius: 8px; padding: 7px 13px;
+}
+button:hover { border-color: var(--ink-3); }
+button.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+button.primary:hover { opacity: .88; }
+button.tiny { padding: 3px 8px; font-size: 12px; border-radius: 6px; }
+button.danger { color: var(--danger); }
+#saved { font-size: 12.5px; color: var(--ok); opacity: 0; transition: opacity .2s; }
+#saved.on { opacity: 1; }
+
+/* ── Bố cục hai cột ────────────────────────────────────────────── */
+.layout { display: grid; grid-template-columns: minmax(380px, 44%) 1fr; height: calc(100vh - 53px); }
+@media (max-width: 1000px) { .layout { grid-template-columns: 1fr; height: auto; } }
+.forms { overflow-y: auto; padding: 18px 18px 120px; }
+.preview { border-left: 1px solid var(--line); background: #fff; position: relative; }
+@media (max-width: 1000px) { .preview { border-left: 0; border-top: 1px solid var(--line); height: 80vh; } }
+.preview iframe { width: 100%; height: 100%; border: 0; display: block; }
+.pv-bar {
+  position: absolute; right: 14px; bottom: 14px; z-index: 5;
+  display: flex; gap: 6px; background: rgba(255,255,255,.94);
+  border: 1px solid var(--line); border-radius: 9px; padding: 5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.1);
+}
+.pv-bar button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ── Nhóm trường ───────────────────────────────────────────────── */
+details.group {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 11px; margin-bottom: 12px; overflow: hidden;
+}
+details.group > summary {
+  cursor: pointer; padding: 13px 16px; font-weight: 600; font-size: 14.5px;
+  list-style: none; display: flex; align-items: center; gap: 9px;
+}
+details.group > summary::-webkit-details-marker { display: none; }
+details.group > summary::before {
+  content: '▸'; color: var(--ink-3); font-size: 12px; transition: transform .12s;
+}
+details.group[open] > summary::before { transform: rotate(90deg); }
+details.group > summary .count { margin-left: auto; font-weight: 400; font-size: 12.5px; color: var(--ink-3); }
+.group-body { padding: 4px 16px 16px; border-top: 1px solid var(--line); }
+
+.f { margin-top: 13px; }
+.f > label { display: block; font-size: 12.5px; color: var(--ink-2); font-weight: 500; margin-bottom: 5px; }
+.f .tip { display: block; font-size: 11.5px; color: var(--ink-3); font-weight: 400; margin-top: 2px; }
+input[type=text], textarea {
+  width: 100%; font: inherit; font-size: 14px; color: var(--ink);
+  border: 1px solid var(--line-2); border-radius: 8px; padding: 8px 10px;
+  background: #fff; resize: vertical;
+}
+input[type=text]:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row-kv { display: grid; grid-template-columns: 110px 1fr auto; gap: 8px; align-items: center; margin-top: 8px; }
+
+.item {
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 14px 16px; margin-top: 12px; background: #fdfdfc;
+}
+.item-head { display: flex; align-items: center; gap: 8px; }
+.item-head .t { font-weight: 600; font-size: 13.5px; margin-right: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.add { margin-top: 12px; }
+.warn { font-size: 12.5px; color: var(--danger); margin-top: 6px; }
+.note {
+  font-size: 12.5px; color: var(--ink-2); background: #fbfaf6;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent);
+  border-radius: 7px; padding: 10px 12px; margin-top: 13px;
+}
+.note code { background: #eeede8; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+dialog {
+  border: 1px solid var(--line-2); border-radius: 12px; padding: 20px;
+  max-width: 620px; width: 92vw; font: inherit;
+}
+dialog::backdrop { background: rgba(0,0,0,.35); }
+dialog h2 { font-size: 16px; margin: 0 0 10px; }
+dialog textarea { height: 240px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+.dlg-foot { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+</style>
+</head>
+
+<body>
+
+<div class="bar">
+  <h1>Trình soạn nội dung Portfolio</h1>
+  <span id="saved">Đã lưu nháp</span>
+  <button id="btnJson">Sao chép / dán JSON</button>
+  <button id="btnReset" class="danger">Về mặc định</button>
+  <button id="btnDownload" class="primary">Tải index.html</button>
+</div>
+
+<div class="layout">
+  <div class="forms" id="forms"></div>
+  <div class="preview">
+    <iframe id="pv" title="Xem trước trang"></iframe>
+    <div class="pv-bar">
+      <button data-w="360">Điện thoại</button>
+      <button data-w="820">Máy tính bảng</button>
+      <button data-w="0" class="on">Toàn khung</button>
+    </div>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <h2>Nội dung dạng JSON</h2>
+  <p style="font-size:13px;color:#52514e;margin:0 0 10px">
+    Sao chép để lưu trữ hoặc gửi cho người khác. Dán nội dung khác vào rồi bấm
+    <strong>Nạp</strong> để thay toàn bộ.
+  </p>
+  <textarea id="dlgText" spellcheck="false"></textarea>
+  <div class="dlg-foot">
+    <button id="dlgCopy">Sao chép</button>
+    <button id="dlgLoad" class="primary">Nạp</button>
+    <button id="dlgClose">Đóng</button>
+  </div>
+</dialog>
+
+<script src="builder.js"></script>
+<script>
+'use strict';
+const B = window.PortfolioBuilder;
+const KEY = 'seo_portfolio_content';
+const clone = o => JSON.parse(JSON.stringify(o));
+
+let data = load();
+
+function load() {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) return migrate(JSON.parse(raw));
+  } catch (e) { /* nháp hỏng thì bỏ qua, dùng mặc định */ }
+  return clone(B.DEFAULT);
+}
+/* Bổ khuyết các trường thiếu nếu bản nháp cũ hơn cấu trúc hiện tại */
+function migrate(d) {
+  const base = clone(B.DEFAULT);
+  const merge = (a, b) => {
+    if (Array.isArray(b) || b === null || typeof b !== 'object') return b === undefined ? a : b;
+    const out = Object.assign({}, a);
+    for (const k in b) out[k] = merge(a ? a[k] : undefined, b[k]);
+    return out;
+  };
+  return merge(base, d);
+}
+
+/* ── Tiện ích dựng form ────────────────────────────────────────── */
+const h = (tag, props, kids) => {
+  const n = document.createElement(tag);
+  for (const k in (props || {})) {
+    if (k === 'class') n.className = props[k];
+    else if (k.startsWith('on')) n.addEventListener(k.slice(2), props[k]);
+    else if (k === 'text') n.textContent = props[k];
+    else if (k === 'html') n.innerHTML = props[k];
+    else n.setAttribute(k, props[k]);
+  }
+  (kids || []).forEach(c => c && n.appendChild(c));
+  return n;
+};
+
+function field(label, get, set, opts) {
+  opts = opts || {};
+  const input = opts.rows
+    ? h('textarea', { rows: opts.rows, spellcheck: 'false' })
+    : h('input', { type: 'text' });
+  input.value = get() == null ? '' : get();
+  input.addEventListener('input', () => { set(input.value); touched(opts.reload); });
+  const lab = h('label', { text: label });
+  if (opts.tip) lab.appendChild(h('span', { class: 'tip', text: opts.tip }));
+  return h('div', { class: 'f' }, [lab, input]);
+}
+
+function numField(label, get, set, opts) {
+  opts = opts || {};
+  const wrap = field(label, () => get().join(', '), v => {
+    set(v.split(',').map(x => parseFloat(String(x).replace(/\s/g, '').replace(/\./g, '')) || 0));
+  }, opts);
+  return wrap;
+}
+
+function itemBox(title, list, idx, body, reload) {
+  const move = (to) => {
+    if (to < 0 || to >= list.length) return;
+    const [x] = list.splice(idx, 1); list.splice(to, 0, x); touched(true);
+  };
+  return h('div', { class: 'item' }, [
+    h('div', { class: 'item-head' }, [
+      h('span', { class: 't', text: title }),
+      h('button', { class: 'tiny', title: 'Lên', text: '↑', onclick: () => move(idx - 1) }),
+      h('button', { class: 'tiny', title: 'Xuống', text: '↓', onclick: () => move(idx + 1) }),
+      h('button', { class: 'tiny danger', text: 'Xoá', onclick: () => {
+        if (confirm('Xoá mục này?')) { list.splice(idx, 1); touched(true); }
+      } })
+    ])
+  ].concat(body));
+}
+
+function group(title, count, body, open) {
+  const sum = h('summary', {}, [document.createTextNode(title)]);
+  if (count != null) sum.appendChild(h('span', { class: 'count', text: count }));
+  return h('details', { class: 'group', open: open ? '' : null }, [
+    sum, h('div', { class: 'group-body' }, body)
+  ]);
+}
+
+/* ── Dựng toàn bộ form ─────────────────────────────────────────── */
+function render() {
+  const root = document.getElementById('forms');
+  const openIds = new Set([...root.querySelectorAll('details.group[open]')].map(d => d.dataset.id));
+  root.innerHTML = '';
+  const isOpen = id => openIds.size ? openIds.has(id) : id === 'basic';
+  const add = (id, node) => { node.dataset.id = id; root.appendChild(node); };
+
+  const m = data.meta;
+
+  /* Thông tin cơ bản */
+  add('basic', group('Thông tin cơ bản', null, [
+    field('Họ tên', () => m.name, v => m.name = v),
+    field('Chức danh', () => m.role, v => m.role = v),
+    field('Tiêu đề trang (thẻ title)', () => m.title, v => m.title = v,
+      { tip: 'Đây là dòng hiện trên Google. Nên dưới 60 ký tự và có từ khóa chính.' }),
+    field('Mô tả trang (meta description)', () => m.description, v => m.description = v,
+      { rows: 3, tip: 'Đoạn mô tả hiện dưới tiêu đề trên Google. Nên 120–160 ký tự.' }),
+    field('Mô tả khi chia sẻ mạng xã hội', () => m.ogDescription, v => m.ogDescription = v, { rows: 2 }),
+    field('Địa chỉ trang (URL)', () => m.url, v => m.url = v,
+      { tip: 'Dùng cho canonical và dữ liệu có cấu trúc. Giữ nguyên nếu bạn chưa đổi tên miền.' }),
+    field('Email liên hệ', () => m.email, v => m.email = v),
+    h('div', { class: 'row2' }, [
+      field('Tổ chức đang làm', () => m.orgName, v => m.orgName = v),
+      field('Website tổ chức', () => m.orgUrl, v => m.orgUrl = v)
+    ]),
+    field('Biểu tượng tab (emoji)', () => m.favicon, v => m.favicon = v),
+    field('Lĩnh vực chuyên môn', () => data.knowsAbout, v => data.knowsAbout = v,
+      { rows: 5, tip: 'Mỗi dòng một mục. Đưa vào dữ liệu có cấu trúc Person, giúp Google hiểu bạn gắn với chủ đề nào.' }),
+    field('Hồ sơ khác (sameAs)', () => data.sameAs, v => data.sameAs = v,
+      { rows: 3, tip: 'Mỗi dòng một link: LinkedIn, GitHub, Facebook nghề nghiệp…' })
+  ], isOpen('basic')));
+
+  /* Phần mở đầu */
+  add('hero', group('Phần mở đầu', null, [
+    field('Nhãn trạng thái', () => data.hero.badge, v => data.hero.badge = v),
+    field('Dòng chức danh dưới tên', () => data.hero.role, v => data.hero.role = v),
+    field('Đoạn giới thiệu', () => data.hero.lede, v => data.hero.lede = v, { rows: 5 }),
+    h('div', { class: 'row2' }, [
+      field('Nút chính', () => data.hero.cta1, v => data.hero.cta1 = v),
+      field('Nút phụ', () => data.hero.cta2, v => data.hero.cta2 = v)
+    ]),
+    h('div', { class: 'f' }, [h('label', { text: 'Bốn con số tổng quan' })]),
+    ...data.hero.stats.map((s, i) => h('div', { class: 'row-kv' }, [
+      h('input', { type: 'text', value: s.val, oninput: e => { s.val = e.target.value; touched(); } }),
+      h('input', { type: 'text', value: s.lbl, oninput: e => { s.lbl = e.target.value; touched(); } }),
+      h('button', { class: 'tiny danger', text: '✕', onclick: () => { data.hero.stats.splice(i, 1); touched(true); } })
+    ])),
+    h('button', { class: 'add', text: '+ Thêm chỉ số', onclick: () => {
+      data.hero.stats.push({ val: '0', lbl: 'Mô tả' }); touched(true);
+    } })
+  ], isOpen('hero')));
+
+  /* Dự án */
+  add('cases', group('Dự án', data.cases.length + ' dự án', [
+    field('Nhãn nhỏ', () => data.sections.cases.label, v => data.sections.cases.label = v),
+    field('Tiêu đề mục', () => data.sections.cases.title, v => data.sections.cases.title = v),
+    field('Mô tả mục', () => data.sections.cases.desc, v => data.sections.cases.desc = v, { rows: 3 }),
+    ...data.cases.map((c, i) => itemBox(c.title || 'Dự án ' + (i + 1), data.cases, i, [
+      field('Nhãn phân loại', () => c.tags, v => c.tags = v,
+        { rows: 3, tip: 'Mỗi dòng một nhãn: ngành, loại dự án, thời lượng…' }),
+      field('Tiêu đề dự án', () => c.title, v => c.title = v, { rows: 2 }),
+      field('Vai trò / phạm vi', () => c.meta, v => c.meta = v),
+      field('Bối cảnh', () => c.context, v => c.context = v, { rows: 5 }),
+      field('Việc đã làm', () => c.actions, v => c.actions = v,
+        { rows: 6, tip: 'Mỗi dòng một gạch đầu dòng.' }),
+      h('div', { class: 'f' }, [h('label', { text: 'Kết quả đo được' })]),
+      ...c.results.map((r, j) => h('div', { class: 'row-kv' }, [
+        h('input', { type: 'text', value: r.val, oninput: e => { r.val = e.target.value; touched(); } }),
+        h('input', { type: 'text', value: r.lbl, oninput: e => { r.lbl = e.target.value; touched(); } }),
+        h('button', { class: 'tiny danger', text: '✕', onclick: () => { c.results.splice(j, 1); touched(true); } })
+      ])),
+      h('button', { class: 'add tiny', text: '+ Thêm kết quả', onclick: () => {
+        c.results.push({ val: '', lbl: '' }); touched(true);
+      } })
+    ])),
+    h('button', { class: 'add', text: '+ Thêm dự án', onclick: () => {
+      data.cases.push({
+        tags: 'Ngành\nLoại dự án\nThời lượng', title: 'Tên dự án',
+        meta: 'Vai trò: …', context: '', actions: '',
+        results: [{ val: '', lbl: '' }, { val: '', lbl: '' }, { val: '', lbl: '' }, { val: '', lbl: '' }]
+      });
+      touched(true);
+    } })
+  ], isOpen('cases')));
+
+  /* Biểu đồ */
+  const g = data.charts.growth, r = data.charts.rank;
+  const lenWarn = (labels, series) => {
+    const bad = series.filter(s => s.values.length !== labels.length);
+    return bad.length ? h('div', { class: 'warn',
+      text: 'Số giá trị không khớp số mốc (' + labels.length + '): ' + bad.map(s => s.name).join(', ') }) : null;
+  };
+
+  add('charts', group('Biểu đồ', null, [
+    field('Nhãn nhỏ', () => data.sections.charts.label, v => data.sections.charts.label = v),
+    field('Tiêu đề mục', () => data.sections.charts.title, v => data.sections.charts.title = v),
+    field('Mô tả mục', () => data.sections.charts.desc, v => data.sections.charts.desc = v, { rows: 3 }),
+
+    h('div', { class: 'item' }, [
+      h('div', { class: 'item-head' }, [h('span', { class: 't', text: 'Biểu đồ đường — tăng trưởng theo thời gian' })]),
+      field('Tiêu đề', () => g.title, v => g.title = v),
+      field('Ghi chú dưới tiêu đề', () => g.sub, v => g.sub = v, { rows: 2 }),
+      field('Mô tả cho trình đọc màn hình', () => g.alt, v => g.alt = v,
+        { rows: 2, tip: 'Người khiếm thị nghe câu này thay cho biểu đồ.' }),
+      field('Các mốc trên trục ngang', () => g.labels.join(', '), v => {
+        g.labels = v.split(',').map(s => s.trim()).filter(Boolean);
+      }, { tip: 'Ngăn cách bằng dấu phẩy. Ví dụ: T0, T1, T2…' }),
+      lenWarn(g.labels, g.series),
+      ...g.series.map((s, i) => h('div', { class: 'item' }, [
+        h('div', { class: 'item-head' }, [
+          h('span', { class: 't', text: 'Đường ' + (i + 1) }),
+          h('button', { class: 'tiny danger', text: 'Xoá', onclick: () => { g.series.splice(i, 1); touched(true); } })
+        ]),
+        field('Tên', () => s.name, v => s.name = v),
+        numField('Giá trị', () => s.values, v => s.values = v, { tip: 'Ngăn cách bằng dấu phẩy.' })
+      ])),
+      g.series.length < 3 ? h('button', { class: 'add tiny', text: '+ Thêm đường', onclick: () => {
+        g.series.push({ name: 'Dự án mới', values: g.labels.map(() => 100) }); touched(true);
+      } }) : h('div', { class: 'note', text: 'Tối đa 3 đường. Bảng màu chỉ có 3 slot đã kiểm định mù màu — thêm nữa là hai đường sẽ khó phân biệt.' })
+    ]),
+
+    h('div', { class: 'item' }, [
+      h('div', { class: 'item-head' }, [h('span', { class: 't', text: 'Biểu đồ cột — so sánh nhóm' })]),
+      field('Tiêu đề', () => r.title, v => r.title = v),
+      field('Ghi chú dưới tiêu đề', () => r.sub, v => r.sub = v, { rows: 2 }),
+      field('Mô tả cho trình đọc màn hình', () => r.alt, v => r.alt = v, { rows: 2 }),
+      field('Tên cột', () => r.categories.join(', '), v => {
+        r.categories = v.split(',').map(s => s.trim()).filter(Boolean);
+      }, { tip: 'Ngăn cách bằng dấu phẩy.' }),
+      field('Tên cột đầu bảng dữ liệu', () => r.rowHeader, v => r.rowHeader = v),
+      lenWarn(r.categories, r.series),
+      ...r.series.map((s, i) => h('div', { class: 'item' }, [
+        h('div', { class: 'item-head' }, [
+          h('span', { class: 't', text: 'Nhóm ' + (i + 1) }),
+          h('button', { class: 'tiny danger', text: 'Xoá', onclick: () => { r.series.splice(i, 1); touched(true); } })
+        ]),
+        field('Tên', () => s.name, v => s.name = v),
+        numField('Giá trị', () => s.values, v => s.values = v)
+      ])),
+      r.series.length < 3 ? h('button', { class: 'add tiny', text: '+ Thêm nhóm', onclick: () => {
+        r.series.push({ name: 'Nhóm mới', values: r.categories.map(() => 0) }); touched(true);
+      } }) : null
+    ])
+  ], isOpen('charts')));
+
+  /* Năng lực */
+  add('skills', group('Năng lực', data.skills.length + ' mục', [
+    field('Nhãn nhỏ', () => data.sections.skills.label, v => data.sections.skills.label = v),
+    field('Tiêu đề mục', () => data.sections.skills.title, v => data.sections.skills.title = v),
+    ...data.skills.map((s, i) => itemBox(s.title || 'Mục ' + (i + 1), data.skills, i, [
+      h('div', { class: 'row2' }, [
+        field('Biểu tượng (emoji)', () => s.icon, v => s.icon = v),
+        field('Tên mảng', () => s.title, v => s.title = v)
+      ]),
+      field('Mô tả một câu', () => s.desc, v => s.desc = v, { rows: 2 }),
+      field('Các gạch đầu dòng', () => s.items, v => s.items = v, { rows: 4 })
+    ])),
+    h('button', { class: 'add', text: '+ Thêm năng lực', onclick: () => {
+      data.skills.push({ icon: '⚙️', title: 'Mảng mới', desc: '', items: '' }); touched(true);
+    } })
+  ], isOpen('skills')));
+
+  /* Quy trình */
+  add('process', group('Quy trình', data.process.length + ' bước', [
+    field('Nhãn nhỏ', () => data.sections.process.label, v => data.sections.process.label = v),
+    field('Tiêu đề mục', () => data.sections.process.title, v => data.sections.process.title = v),
+    ...data.process.map((s, i) => itemBox('Bước ' + (i + 1) + ' — ' + (s.title || ''), data.process, i, [
+      field('Tên bước', () => s.title, v => s.title = v),
+      field('Mô tả', () => s.desc, v => s.desc = v, { rows: 3 })
+    ])),
+    h('button', { class: 'add', text: '+ Thêm bước', onclick: () => {
+      data.process.push({ title: 'Bước mới', desc: '' }); touched(true);
+    } }),
+    h('div', { class: 'note', text: 'Số thứ tự tự đánh lại theo vị trí, bạn không cần sửa tay.' })
+  ], isOpen('process')));
+
+  /* Công cụ & liên hệ */
+  add('rest', group('Công cụ, liên hệ, chân trang', null, [
+    field('Nhãn nhỏ mục công cụ', () => data.sections.tools.label, v => data.sections.tools.label = v),
+    field('Tiêu đề mục công cụ', () => data.sections.tools.title, v => data.sections.tools.title = v),
+    field('Danh sách công cụ', () => data.tools, v => data.tools = v,
+      { rows: 8, tip: 'Mỗi dòng một công cụ.' }),
+    field('Tiêu đề khối liên hệ', () => data.contact.heading, v => data.contact.heading = v, { rows: 2 }),
+    field('Nội dung khối liên hệ', () => data.contact.text, v => data.contact.text = v, { rows: 3 }),
+    field('Nút liên kết thêm', () => data.contact.links, v => data.contact.links = v,
+      { rows: 3, tip: 'Mỗi dòng một nút, dạng: Tên nút | https://link' }),
+    field('Ghi chú chân trang', () => data.footerNote, v => data.footerNote = v),
+    h('div', { class: 'f' }, [h('label', { text: 'Tên trên thanh điều hướng' })]),
+    ...['cases', 'charts', 'skills', 'process', 'contact'].map(k =>
+      h('div', { class: 'row-kv' }, [
+        h('span', { text: k, style: 'font-size:12.5px;color:#898781' }),
+        h('input', { type: 'text', value: data.sections[k].nav,
+          oninput: e => { data.sections[k].nav = e.target.value; touched(); } }),
+        h('span')
+      ])
+    )
+  ], isOpen('rest')));
+
+  add('help', group('Cách đưa lên mạng', null, [
+    h('div', { class: 'note', html:
+      'Bấm <strong>Tải index.html</strong> để lấy file hoàn chỉnh, rồi chọn một trong hai cách:' +
+      '<br><br><strong>Cách 1 — qua GitHub, không cần Terminal:</strong> mở ' +
+      '<code>github.com/anhnhnwork-code/seo-portfolio</code>, bấm vào file <code>index.html</code>, ' +
+      'bấm biểu tượng bút chì, xoá hết nội dung cũ, dán nội dung file mới vào rồi bấm ' +
+      '<em>Commit changes</em>. Khoảng một phút sau trang thật sẽ cập nhật.' +
+      '<br><br><strong>Cách 2 — nhờ Claude:</strong> bấm <strong>Sao chép / dán JSON</strong>, ' +
+      'sao chép toàn bộ rồi gửi lại cho Claude kèm câu "cập nhật portfolio với nội dung này".' +
+      '<br><br>Nháp của bạn được lưu tự động trong trình duyệt này, đóng tab không mất.' })
+  ], isOpen('help')));
+}
+
+/* ── Xem trước ─────────────────────────────────────────────────── */
+let previewTimer, saveTimer;
+function touched(reload) {
+  clearTimeout(previewTimer);
+  previewTimer = setTimeout(refreshPreview, 350);
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 600);
+  if (reload) render();
+}
+function refreshPreview() {
+  document.getElementById('pv').srcdoc = B.buildHTML(data);
+}
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(data));
+    const s = document.getElementById('saved');
+    s.classList.add('on');
+    setTimeout(() => s.classList.remove('on'), 1400);
+  } catch (e) { /* hết dung lượng thì thôi */ }
+}
+
+/* ── Nút trên thanh công cụ ────────────────────────────────────── */
+document.getElementById('btnDownload').addEventListener('click', () => {
+  const blob = new Blob([B.buildHTML(data)], { type: 'text/html;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+});
+
+document.getElementById('btnReset').addEventListener('click', () => {
+  if (!confirm('Xoá hết chỉnh sửa và quay về nội dung mẫu ban đầu?')) return;
+  data = clone(B.DEFAULT);
+  localStorage.removeItem(KEY);
+  render(); refreshPreview();
+});
+
+const dlg = document.getElementById('dlg');
+document.getElementById('btnJson').addEventListener('click', () => {
+  document.getElementById('dlgText').value = JSON.stringify(data, null, 2);
+  dlg.showModal();
+});
+document.getElementById('dlgCopy').addEventListener('click', async () => {
+  const t = document.getElementById('dlgText');
+  t.select();
+  try { await navigator.clipboard.writeText(t.value); } catch (e) { document.execCommand('copy'); }
+  document.getElementById('dlgCopy').textContent = 'Đã sao chép';
+  setTimeout(() => document.getElementById('dlgCopy').textContent = 'Sao chép', 1500);
+});
+document.getElementById('dlgLoad').addEventListener('click', () => {
+  try {
+    data = migrate(JSON.parse(document.getElementById('dlgText').value));
+    dlg.close(); render(); refreshPreview(); save();
+  } catch (e) { alert('Nội dung JSON không hợp lệ: ' + e.message); }
+});
+document.getElementById('dlgClose').addEventListener('click', () => dlg.close());
+
+document.querySelectorAll('.pv-bar button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.pv-bar button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    const w = +b.dataset.w;
+    const f = document.getElementById('pv');
+    f.style.width = w ? w + 'px' : '100%';
+    f.style.margin = w ? '0 auto' : '0';
+    f.style.borderLeft = w ? '1px solid #e1e0d9' : '0';
+    f.style.borderRight = w ? '1px solid #e1e0d9' : '0';
+  });
+});
+
+render();
+refreshPreview();
+</script>
+
+</body>
+</html>
