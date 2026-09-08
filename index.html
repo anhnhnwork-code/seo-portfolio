@@ -268,8 +268,10 @@ figure.chart figcaption { margin-bottom: 4px; }
 .legend { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0 10px; }
 .legend-item { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-secondary); }
 .swatch { width: 11px; height: 11px; border-radius: 3px; flex: none; }
-.chart-canvas { position: relative; }
-.chart-canvas svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* Trên màn hình hẹp biểu đồ cuộn ngang thay vì co nhỏ đến mức không đọc được */
+.chart-canvas { overflow-x: auto; overscroll-behavior-x: contain; }
+.chart-inner { position: relative; min-width: 660px; }
+.chart-inner svg { display: block; width: 100%; height: auto; overflow: visible; }
 
 .tooltip {
   position: absolute; pointer-events: none; opacity: 0;
@@ -906,11 +908,16 @@ function buildLegend(host, series) {
   ).join('');
 }
 
-function makeTooltip(host) {
-  const t = document.createElement('div');
-  t.className = 'tooltip';
-  host.appendChild(t);
-  return t;
+/* Gắn SVG vào một khung cuộn ngang; tooltip nằm cùng khung nên toạ độ luôn khớp */
+function mountChart(host, svg) {
+  const inner = document.createElement('div');
+  inner.className = 'chart-inner';
+  inner.appendChild(svg);
+  const tip = document.createElement('div');
+  tip.className = 'tooltip';
+  inner.appendChild(tip);
+  host.appendChild(inner);
+  return tip;
 }
 
 /* ── Biểu đồ đường: xu hướng theo thời gian ────────────────────── */
@@ -986,9 +993,7 @@ function drawGrowth() {
 
   const hit = el('rect', { x: padL, y: padT, width: plotW, height: plotH, fill: 'transparent' });
   svg.appendChild(hit);
-  host.appendChild(svg);
-
-  const tip = makeTooltip(host);
+  const tip = mountChart(host, svg);
   const show = (evt) => {
     const box = svg.getBoundingClientRect();
     const px = ((evt.clientX - box.left) / box.width) * W;
@@ -1059,7 +1064,6 @@ function drawRank() {
     svg.appendChild(t);
   });
 
-  const tip = makeTooltip(host);
   const barPath = (bx, by, bw, bh, r) => {
     const rr = Math.min(r, bh);
     return `M${bx},${by + bh} L${bx},${by + rr} Q${bx},${by} ${bx + rr},${by}` +
@@ -1103,7 +1107,7 @@ function drawRank() {
     svg.appendChild(ct);
   });
 
-  host.appendChild(svg);
+  const tip = mountChart(host, svg);
 
   document.getElementById('rankTable').innerHTML =
     `<table class="data-table">
